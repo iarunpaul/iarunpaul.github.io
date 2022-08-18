@@ -1,5 +1,5 @@
 :root {
-  --accent: #ffa86a;
+  --accent: #6a92ff;
   --background: #222129;
   --border-color: hsla(0, 0%, 100%, 0.1);
   --color: #fff;
@@ -132,8 +132,8 @@ a.read-more:hover {
 .header__logo:after {
   background: repeating-linear-gradient(
     90deg,
-    #ffa86a,
-    #ffa86a 2px,
+    #6a92ff,
+    #6a92ff 2px,
     transparent 0,
     transparent 10px
   );
@@ -239,7 +239,7 @@ a.read-more:hover {
   -moz-user-select: none;
   -ms-user-select: none;
   -webkit-user-select: none;
-  color: #ffa86a;
+  color: #6a92ff;
   color: var(--accent);
   cursor: pointer;
   user-select: none;
@@ -251,7 +251,7 @@ a.read-more:hover {
 }
 .header .menu-trigger {
   border: 2px solid;
-  color: #ffa86a;
+  color: #6a92ff;
   color: var(--accent);
   height: 100%;
   margin-left: 10px;
@@ -260,7 +260,7 @@ a.read-more:hover {
 }
 .logo {
   align-items: center;
-  background: #ffa86a;
+  background: #6a92ff;
   background: var(--accent);
   color: #000;
   display: flex;
@@ -358,7 +358,7 @@ figure.right {
   margin-left: auto;
 }
 figure figcaption {
-  background: #ffa86a;
+  background: #6a92ff;
   background: var(--accent);
   color: #222129;
   color: var(--background);
@@ -378,7 +378,7 @@ figure figcaption.right {
 code {
   -webkit-font-feature-settings: normal;
   background: rgba(255, 168, 106, 0.2);
-  color: #ffa86a;
+  color: #6a92ff;
   color: var(--accent);
   font-family: Fira Code, Monaco, Consolas, Ubuntu Mono, monospace;
   font-feature-settings: normal;
@@ -415,9 +415,9 @@ pre code {
   padding: 0;
 }
 blockquote {
-  border-bottom: 1px solid #ffa86a;
+  border-bottom: 1px solid #6a92ff;
   border-bottom: 1px solid var(--accent);
-  border-top: 1px solid #ffa86a;
+  border-top: 1px solid #6a92ff;
   border-top: 1px solid var(--accent);
   margin: 40px 0;
   padding: 25px;
@@ -445,7 +445,7 @@ blockquote p {
   position: relative;
 }
 blockquote p:before {
-  color: #ffa86a;
+  color: #6a92ff;
   color: var(--accent);
   content: ">";
   display: block;
@@ -461,12 +461,12 @@ table {
 table,
 td,
 th {
-  border: 1px dashed #ffa86a;
+  border: 1px dashed #6a92ff;
   border: 1px dashed var(--accent);
   padding: 10px;
 }
 th {
-  color: #ffa86a;
+  color: #6a92ff;
   color: var(--accent);
 }
 ol,
@@ -548,10 +548,10 @@ hr {
   margin-bottom: 10px;
 }
 .post-title {
-  --border: 3px dotted #ffa86a;
+  --border: 3px dotted #6a92ff;
   --border: 3px dotted var(--accent);
   border-bottom: var(--border);
-  color: #ffa86a;
+  color: #6a92ff;
   color: var(--accent);
   margin: 0 0 15px;
   padding-bottom: 15px;
@@ -582,7 +582,7 @@ hr {
 }
 .post-cover {
   background: transparent;
-  border: 20px solid #ffa86a;
+  border: 20px solid #6a92ff;
   border: 20px solid var(--accent);
   margin: 40px 0;
   padding: 20px;
@@ -597,7 +597,7 @@ hr {
   list-style: none;
 }
 .post ul li:before {
-  color: #ffa86a;
+  color: #6a92ff;
   color: var(--accent);
   content: "\25BA";
   left: -20px;
@@ -922,7 +922,7 @@ div.code-toolbar > .toolbar span:hover {
 .token.url,
 code.language-css,
 code.language-scss {
-  color: #ffa86a;
+  color: #6a92ff;
   color: var(--accent);
 }
 .token.atrule-id,
