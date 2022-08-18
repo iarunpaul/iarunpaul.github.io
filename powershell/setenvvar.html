@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="generator" content="Hugo 0.47.1" />
+    <title>~/dev.ops — Get your Platform On</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1"
+    />
+    <meta name="description" content="Get your Linux On" />
+    <meta name="keywords" content="Kubernetes,k8s,DevOps,devops" />
+    <meta name="robots" content="noodp" />
+    <link rel="canonical" href="http://localhost/" />
+    <link rel="stylesheet" href="/assets/style.css" />
+
+    <link rel="shortcut icon" href="assets/vector-product-icon.png" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="~/dev.ops — Get your platforms On" />
+    <meta name="twitter:description" content="" />
+    <meta name="twitter:site" content="https://twitter.com/iarunpaul" />
+    <meta name="twitter:creator" content="" />
+    <meta name="twitter:image" content="" />
+    <meta property="og:locale" content="en" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="~/dev.ops — Get your platforms On" />
+    <meta property="og:description" content="" />
+    <meta property="og:url" content="http://localhost/" />
+    <meta property="og:site_name" content="Arun Paul" />
+    <meta property="og:image" content="" />
+    <meta property="og:image:width" content="2048" />
+    <meta property="og:image:height" content="1024" />
+    <link
+      href="/index.html"
+      rel="alternate"
+      type="application/html"
+      title="~/dev.ops"
+    />
+    <link
+      href="/home.html"
+      rel="alternate"
+      type="application/html"
+      title="~/dev.ops"
+    />
+    <script src="/assets/netlify-identity-widget.js"></script>
+  </head>
+  <body>
+    <div class="container full">
+      <header class="header">
+        <div class="header__inner">
+          <div class="header__logo">
+            <a href="/"><div class="logo">~/dev.ops</div></a>
+          </div>
+          <div class="menu-trigger hidden">menu</div>
+        </div>
+        <nav class="menu">
+          <ul class="menu__inner menu__inner--desktop">
+            <li><a href="/">Blogs</a></li>
+            <li><a href="/">Peek</a></li>
+            <li><a href="/resources.html">Resources</a></li>
+          </ul>
+          <ul class="menu__inner menu__inner--mobile">
+            <li><a href="/">Blogs</a></li>
+            <li><a href="/">Peek</a></li>
+            <li><a href="/resources.html">Resources</a></li>
+          </ul>
+        </nav>
+      </header>
+      <div class="content">
+        <div class="post">
+          <h1 class="post-title">
+            <a href="/k8s-best-practices.html"
+              >Windows+PowerShell: Set Environment Variable by PowerShell</a
+            >
+          </h1>
+          <div class="post-meta">
+            <span class="post-date">2022-07-16</span>
+            <span class="post-author">:: Paul</span>
+          </div>
+          <span class="post-tags"
+            >#<a href="">windows</a>&nbsp; #<a href="">pwsh</a>&nbsp; #<a href=""
+              >terminal</a
+            >&nbsp;</span
+          >
+          <div class="post-content">
+            <p><em>Windows+PowerShell: Set Environment Variable by PowerShell</em></p>
+            <h1 id="introduction">Introduction</h1>
+            <p>
+              Setting the environment var in the middle of a configuration or when writing a 
+							script is always a frustration, especially when you are not sure where to look for, and
+							what to look for...Is it System, Local, environment.
+            </p>
+            <p>
+              A PowerShell script saves lot of reserach energy and time if you have a handy one ready with you.							
+            
+            </p>
+            <section>
+              <p class="b f3">Categories</p>
+              <ul>
+                <li>1. Readiness probes</li>
+                <li>2. Liveness probes</li>
+              </ul>
+            </section>
+					</p>
+					<blockquote>If you think that setting an env var is easy for you, please skip this article
+					, as it can be achieved too easy  in many other ways.
+					</blockquote>
+					<p>I really considered the compliance of checking and setting a variable at the expense of a 
+						simple check and execute commands.
+					</p>
+					<p>Here we go the shelly way....</p>
+					<pre class="language-powershell">
+						<code class="language-powershell">
+	$oldPath = [Environment]::GetEnvironmentVariable('Path', [EnvironmentVariableTarget]::Machine)
+	if ($oldPath.Split(';') -inotcontains 'C:\minikube'){ `
+		[Environment]::SetEnvironmentVariable('Path', $('{0};C:\minikube' -f $oldPath), [EnvironmentVariableTarget]::Machine) `
+	}
+						</code>
+					</pre>
+					<p>
+						<h5>The command does the following things:</h5>
+            <ul>
+              <li>
+                Grabs the <code>Machine</code> Environment Variable Path
+							</li>
+							<li>
+								Checks if the <code>New Path</code> exists
+              </li>
+							<li>If not it adds it to the Environment Variables</li>
+            </ul>
+                <p>Resources:</p>
+                <ul>
+                  <li>
+                    If you find it the hard way, try something easy here,
+                    <a
+                      href="https://stackoverflow.com/questions/714877/setting-windows-powershell-environment-variables"
+                      target="_blank"
+                      rel="noreferrer"
+                      class="link navy underline hover-sky"
+                      >configure using <code>$env:Path</code></a
+                    >.
+                  </li>
+                </ul>
+          <div class="pagination">
+            <div class="pagination__buttons">
+              <span class="button next"><a href="/k8s-best-practices.html"><span class="button__text">Older posts</span>
+                  <span class="button__icon"></span></a></span>
+            </div>
+          </div>
+      </div>
+      <footer class="footer">
+        <div class="footer__inner">
+          <div class="copyright copyright--user">© 2022 Arun Paul</div>
+        </div>
+      </footer>
+      <script src="/assets/main.js"></script>
+      <script src="/assets/prism.js"></script>
+    </div>
+    <iframe
+      id="netlify-identity-widget"
+      title="Netlify identity widget"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        border: none;
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+        background: transparent;
+        display: none;
+        z-index: 99;
+      "
+      src="about:blank"
+    ></iframe>
+  </body>
+</html>
