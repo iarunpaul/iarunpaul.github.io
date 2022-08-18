@@ -543,7 +543,7 @@ hr {
   border-bottom: 1px solid var(--border-color);
 }
 .post-meta {
-  color: rgba(255, 168, 106, 0.7);
+  color: #6a92ff;
   font-size: 1rem;
   margin-bottom: 10px;
 }
