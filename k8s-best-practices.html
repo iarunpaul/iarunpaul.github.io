@@ -55,14 +55,14 @@
         </div>
         <nav class="menu">
           <ul class="menu__inner menu__inner--desktop">
-            <li><a href="/posts">Posts</a></li>
-            <li><a href="/quick">Quick</a></li>
-            <li><a href="/resources">Resources</a></li>
+            <li><a href="/">Blogs</a></li>
+            <li><a href="/">Peek</a></li>
+            <li><a href="/">Resources</a></li>
           </ul>
           <ul class="menu__inner menu__inner--mobile">
-            <li><a href="/posts">Posts</a></li>
-            <li><a href="/quick">Quick</a></li>
-            <li><a href="/resources">Resources</a></li>
+            <li><a href="/">Blogs</a></li>
+            <li><a href="/">Peek</a></li>
+            <li><a href="/">Resources</a></li>
           </ul>
         </nav>
       </header>
@@ -130,7 +130,7 @@
                   restarted.
                 </p>
                 <p>
-                  he kubelet executes the check and decides if the container
+                  The kubelet executes the check and decides if the container
                   should be restarted.
                 </p>
                 <p>Resources:</p>
@@ -172,7 +172,7 @@
                   If the container takes 2 minutes to start, all the requests to
                   it will fail for those 2 minutes.
                 </p>
-								<p> Lets look at how we applied our config</p>
+								<p> Lets have a quick look at how we applied our config</p>
 								<pre class="language-yaml">
 									<code class="language-yaml">
 										livenessProbe:
@@ -193,11 +193,10 @@
 										timeoutSeconds: 1
 									</code>
 								</pre>
-              </li>
-              <li>
-                <h1 id="prerequisites">
+             
+                <p id="prerequisites">
                   Containers crash when there's a fatal error
-                </h1>
+								</p>
                 <p>
                   If the application reaches an unrecoverable error,
                   <a
