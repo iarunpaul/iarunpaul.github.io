@@ -69,43 +69,42 @@
       <div class="content">
         <div class="post">
           <h1 class="post-title">
-            <a href="https://wsl.dev/wsl2init/">WSL2 init: emerging OpenRC</a>
+            <a href="/k8s-best-practices.html">Kubernetes<br>production<br>best practices</a>
           </h1>
           <div class="post-meta">
-            <span class="post-date">2021-12-28</span>
-            <span class="post-author">:: Nunix</span>
+            <span class="post-date">2022-08-18</span>
+            <span class="post-author">:: Paul</span>
           </div>
           <span class="post-tags"
-            >#<a href="https://wsl.dev/tags/wsl2/">WSL2</a>&nbsp; #<a
-              href="https://wsl.dev/tags/systemd/"
-              >SystemD</a
-            >&nbsp; #<a href="https://wsl.dev/tags/openrc/">OpenRC</a
+            >#<a href="">k8s</a>&nbsp; #<a
+              href=""
+              >Prod</a
+            >&nbsp; #<a href="">BestPractices</a
             >&nbsp;</span
           >
           <div class="post-content">
-            <p><em>WSL2 init: emerging OpenRC</em></p>
+            <p><em>Kubernetes<br>production<br>best practices</em></p>
             <h1 id="introduction">Introduction</h1>
             <p>
-              Since WSL2 has been released, the community has tried (quite
-              successfully) to add SystemD to their distros.
+              A curated checklist of best practices designed to help you release to
+            production
             </p>
-            <p>Currently, the most commons solutions are:</p>
+            <p>This checklist provides actionable best practices for deploying secure,
+							scalable, and resilient services on Kubernetes.The content is open source and available <a
+							href="https://github.com/learnk8s/kubernetes-production-best-practices" target="_blank" rel="noreferrer">in this repository</a>.<br>If you think there are missing best practices or
+						they are not right, consider submitting an issue. Check things off to keep track as you go.</p>
+						<section>
+							<p class="b f3">Categories</p>
             <ul>
               <li>
-                A single script by the awesome
-                <a href="https://twitter.com/diddledani">Dani</a> -
-                <a href="https://github.com/diddledani/one-script-wsl2-systemd"
-                  >GitHub - diddledani/one-script-wsl2-systemd: The one-script
-                  variant of the systemd hack for WSL2</a
-                >
-              </li>
+                1. Application development
+							</li>
               <li>
-                A “fully integrated” packages and installer by the amazing
-                Arkane Systems:
-                <a href="https://github.com/arkane-systems/genie"
-                  >GitHub - arkane-systems/genie: A quick way into a systemd
-                  “bottle” for WSL</a
-                >
+								2.
+								Governance
+              </li>
+							<li>
+								3. Cluster configuration
               </li>
             </ul>
             <blockquote>
@@ -113,116 +112,92 @@
                 Note: Other solutions exist, but these two are the most known in
                 the WSL community.
               </p>
-            </blockquote>
+           
+            <h1 id="sources">1. Application development</h1>
             <p>
-              Both solutions allow you to run SystemD as <code>PID1</code>.
-              These solutions evolved along the years and are today very well
-              integrated with WSL2 and, more recently, with WSL2g.
+              The readiness probe determines when a container
+                      can receive traffic.
             </p>
-            <p>
-              However, in the Linux community, there’s quite a
-              <a
-                href="https://www.howtogeek.com/675569/why-linuxs-systemd-is-still-divisive-after-all-these-years/"
-                >debate on SystemD</a
-              >
-              itself, and not all the
-              <a
-                href="https://en.wikipedia.org/wiki/Category:Linux_distributions_without_systemd"
-                >Linux distros use it</a
-              >.
-            </p>
-            <p>
-              So, “what if” you could run another init system instead of
-              SystemD?
-            </p>
-            <h1 id="sources">Sources</h1>
-            <p>
-              As I often stated: all ideas have an inspiration or are an
-              alternative to something already done/existing.
-            </p>
-            <p>For this blog post, my main inspirations were:</p>
+            <p>The kubelet executes the checks and decides if the app can receive
+							traffic or not.
+						</p>
+						<p>
+						The liveness probe determines when a container
+							should be restarted.
+						</p>
+						<p>
+							he kubelet executes the check and decides if the container should
+                    be restarted.
+						</p>
+						<p>
+							Resources:
+						</p>
             <ul>
               <li>
-                OpenRC on WSL2:
+                The official Kubernetes documentation offers some practical
+                      advice on how to <a
+                        href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/"
+                        target="_blank" rel="noreferrer" class="link navy underline hover-sky">configure Liveness,
+                        Readiness and Startup Probes</a>.
+              </li>
+              <li>
                 <a
-                  href="https://github.com/rancher-sandbox/rancher-desktop-wsl-distro"
-                  >Rancher Desktop WSL distro</a
-                >
-              </li>
-              <li>
-                SystemD without <code>PID1</code>: Blog by
-                <a href="https://march1993.com/en/">march1993</a>
+									href="https://srcco.de/posts/kubernetes-liveness-probes-are-dangerous.html" target="_blank"
+									rel="noreferrer" class="link navy underline hover-sky">Liveness probes are dangerous</a> has
+								some information on how to set (or not) dependencies in your readiness probes.
               </li>
             </ul>
+						<h id="sources">Containers have Readiness probes</h>
             <p>
-              Also, a very special mention to the
-              <a href="https://wiki.gentoo.org/wiki/Main_Page">Gentoo wiki</a>
-              which might be one of the best sources of knowledge for Linux.
+              Please note that there's no default value for readiness and
+                          liveness.
             </p>
-            <p>Other references will be properly linked in the blog post.</p>
+            <p>If you don't set the readiness probe, the kubelet assumes that
+							the app is ready to receive traffic as soon as the container starts.</p>
             <p>
-              So to everyone who already took the time to create content: THANK
-              YOU!
+              If the container takes 2 minutes to start, all the requests to
+                        it will fail for those 2 minutes.
             </p>
-            <h1 id="prerequisites">Prerequisites</h1>
+            <h1 id="prerequisites">Containers crash when there's
+							a fatal error</h1>
             <p>
-              The following list might be quite long, so I won’t explain how to
-              install it. However I will put the links that I used my own setup.
+              If the application reaches an unrecoverable error, <a
+                          href="https://blog.colinbreck.com/kubernetes-liveness-and-readiness-probes-revisited-how-to-avoid-shooting-yourself-in-the-other-foot/#letitcrash"
+                          target="_blank" rel="noreferrer" class="link navy underline hover-sky">you should let it
+                          crash</a>.
             </p>
-            <p>Here is my setup:</p>
+						<p>
+							Examples of such unrecoverable errors are:
+						</p>
+            
             <ul>
-              <li>OS: Windows 11 Insiders Dev channel</li>
+              <li>an uncaught exception</li>
               <li>
-                <p>Windows 11 Features:</p>
-                <ul>
-                  <li>
-                    <a
-                      href="https://docs.microsoft.com/en-us/windows/wsl/install"
-                      >Virtualization Platform and Windows Subsystem for Linux
-                      (v2) enabled</a
-                    >
-                  </li>
-                </ul>
+                a typo in the code (for dynamic languages)
               </li>
               <li>
-                <p>
-                  WSL2: a
-                  <a
-                    href="https://docs.microsoft.com/en-us/windows/wsl/install-manual#step-6---install-your-linux-distribution-of-choice"
-                    >Store</a
-                  >
-                  or
-                  <a
-                    href="https://docs.microsoft.com/en-us/windows/wsl/use-custom-distro"
-                    >Custom</a
-                  >
-                  distro
-                </p>
-                <ul>
-                  <li>
-                    For OpenRC, I used
-                    <a href="https://www.gentoo.org/">Gentoo</a>
-                  </li>
-                  <li>
-                    For SystemD, I used both
-                    <a href="https://ubuntu.com/">Ubuntu 21.10</a> and
-                    <a
-                      href="https://www.whitewaterfoundry.com/fedora-remix-for-wsl"
-                      >FedoraRemix</a
-                    >
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <p>
-                  [Optional]
-                  <a
-                    href="https://devblogs.microsoft.com/commandline/windows-terminal-preview-v0-10-release/"
-                    >Windows Terminal</a
-                  >
-                </p>
+                unable to load a header or dependency
               </li>
             </ul>
+						<p>
+							Please note that you should not signal a failing Liveness
+                        probe.
+						</p>
+						<p>
+							Instead, you should immediately exit the process and let the
+                        kubelet restart the container.
+						</p>
+
+
+
+
+
+
+
+
+
+
+						
             <h1 id="openrc-the-challenger">OpenRC: the challenger</h1>
             <p>
               <a href="https://en.wikipedia.org/wiki/OpenRC">OpenRC</a> is the
