@@ -70,7 +70,7 @@
         <div class="post">
           <h1 class="post-title">
             <a href="/k8s-best-practices.html"
-              >Kubernetes production best practices</a
+              >Kubernetes container probes</a
             >
           </h1>
           <div class="post-meta">
@@ -83,37 +83,31 @@
             >&nbsp;</span
           >
           <div class="post-content">
-            <p><em>Kubernetes production best practices</em></p>
+            <p><em>Kubernetes container probes</em></p>
             <h1 id="introduction">Introduction</h1>
             <p>
-              The blog has some basic best practices we have applied for our k8s
+              The container probes are among the basic best practices advised for k8s
               cluster before going to production.
             </p>
             <p>
-              It helps for deploying secure, scalable, and resilient services on
-              Kubernetes. <br />If you think there are missing best practices or
-              they are not right, consider contacting me through email.
-            </p>
-            <p>
-              The differnt categories under which we can put those practices can
+              It helps for deploying self probing and resilient services(restart) on
+              Kubernetes. 							
+            
+              The differnt categories under which we can put k8s container probes can
               be broadly as follows:
             </p>
             <section>
               <p class="b f3">Categories</p>
               <ul>
-                <li>1. Application development</li>
-                <li>2. Governance</li>
-                <li>3. Cluster configuration</li>
+                <li>1. Readiness probes</li>
+                <li>2. Liveness probes</li>
               </ul>
             </section>
-            <blockquote>
-              <p>
-                Note: There are many more best practices you need to be applied
-                on your cluster before you move to production. But these are
-                some major ones of many.
-              </p>
-            </blockquote>
-            <h1 id="sources">1. Application development</h1>
+					</p>
+					<blockquote>If you think there are missing content or
+						they are not right about the subject, consider contacting me through email.</blockquote>
+					<p>
+            <h1 id="sources">1. Readiness probes</h1>
             <ul>
               <li>
                 <h3>The readiness probe</h3>
@@ -125,6 +119,82 @@
                   The kubelet executes the checks and decides if the app can
                   receive traffic or not.
                 </p>
+								<h id="sources">Containers have Readiness probes</h>
+                <p>
+                  Please note that there's no default value for readiness and
+                  liveness.
+                </p>
+                <p>
+                  If you don't set the readiness probe, the kubelet assumes that
+                  the app is ready to receive traffic as soon as the container
+                  starts.
+                </p>
+                <p>
+                  If the container takes 2 minutes to start, all the requests to
+                  it will fail for those 2 minutes.
+                </p>
+								<p> Lets have a quick look at how we applied our config</p>
+								<pre class="language-yaml">
+									<code class="language-yaml">
+
+									readinessProbe:
+										failureThreshold: 3
+										initialDelaySeconds: 5
+										periodSeconds: 5
+										successThreshold: 1
+										tcpSocket:
+											port: 80
+										timeoutSeconds: 1
+									</code>
+								</pre>
+							</li>
+							<li>
+								<h1>The liveness probes</h1>
+                <p id="prerequisites">
+                  Containers crash when there's a fatal error
+								</p>
+								<p>
+									Lets look at a typical liveness probe config yaml:
+								</p>
+								<pre class="language-yaml">
+									<code class="language-yaml">
+								livenessProbe:
+								failureThreshold: 3
+								initialDelaySeconds: 15
+								periodSeconds: 10
+								successThreshold: 1
+								tcpSocket:
+									port: 80
+								timeoutSeconds: 1
+									</code>
+								</pre>
+                <p>
+                  If the application reaches an unrecoverable error,
+                  <a
+                    href="https://blog.colinbreck.com/kubernetes-liveness-and-readiness-probes-revisited-how-to-avoid-shooting-yourself-in-the-other-foot/#letitcrash"
+                    target="_blank"
+                    rel="noreferrer"
+                    class="link navy underline hover-sky"
+                    >you should let it crash</a
+                  >.
+                </p>
+                <p>Examples of such unrecoverable errors are:</p>
+
+                <ul>
+                  <li>an uncaught exception</li>
+                  <li>a typo in the code (for dynamic languages)</li>
+                  <li>unable to load a header or dependency</li>
+                </ul>
+                <p>
+                  Please note that you should not signal a failing Liveness
+                  probe.
+                </p>
+                <p>
+                  Instead, you should immediately exit the process and let the
+                  kubelet restart the container.
+                </p>
+              </li>
+            </ul>
                 <p>
                   The liveness probe determines when a container should be
                   restarted.
@@ -158,72 +228,7 @@
                     your readiness probes.
                   </li>
                 </ul>
-                <h id="sources">Containers have Readiness probes</h>
-                <p>
-                  Please note that there's no default value for readiness and
-                  liveness.
-                </p>
-                <p>
-                  If you don't set the readiness probe, the kubelet assumes that
-                  the app is ready to receive traffic as soon as the container
-                  starts.
-                </p>
-                <p>
-                  If the container takes 2 minutes to start, all the requests to
-                  it will fail for those 2 minutes.
-                </p>
-								<p> Lets have a quick look at how we applied our config</p>
-								<pre class="language-yaml">
-									<code class="language-yaml">
-										livenessProbe:
-										failureThreshold: 3
-										initialDelaySeconds: 15
-										periodSeconds: 10
-										successThreshold: 1
-										tcpSocket:
-											port: 80
-										timeoutSeconds: 1
-									readinessProbe:
-										failureThreshold: 3
-										initialDelaySeconds: 5
-										periodSeconds: 5
-										successThreshold: 1
-										tcpSocket:
-											port: 80
-										timeoutSeconds: 1
-									</code>
-								</pre>
-             
-                <p id="prerequisites">
-                  Containers crash when there's a fatal error
-								</p>
-                <p>
-                  If the application reaches an unrecoverable error,
-                  <a
-                    href="https://blog.colinbreck.com/kubernetes-liveness-and-readiness-probes-revisited-how-to-avoid-shooting-yourself-in-the-other-foot/#letitcrash"
-                    target="_blank"
-                    rel="noreferrer"
-                    class="link navy underline hover-sky"
-                    >you should let it crash</a
-                  >.
-                </p>
-                <p>Examples of such unrecoverable errors are:</p>
-
-                <ul>
-                  <li>an uncaught exception</li>
-                  <li>a typo in the code (for dynamic languages)</li>
-                  <li>unable to load a header or dependency</li>
-                </ul>
-                <p>
-                  Please note that you should not signal a failing Liveness
-                  probe.
-                </p>
-                <p>
-                  Instead, you should immediately exit the process and let the
-                  kubelet restart the container.
-                </p>
-              </li>
-            </ul>
+                
 
             <h1 id="openrc-the-challenger">OpenRC: the challenger</h1>
             <p>
