@@ -29,6 +29,9 @@ url: "https://iarunpaul.github.io/" # the base hostname & protocol for your site
 twitter_username: iarunpaul
 github_username:  iarunpaul
 
+disqus:
+    shortname: https-iarunpaul-github-io
+
 # Build settings
 theme: minima
 plugins:
