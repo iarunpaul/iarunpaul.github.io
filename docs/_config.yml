@@ -45,7 +45,8 @@ paginate: 5
 # Excluded items can be processed by explicitly listing the directories or
 # their entries' file path in the `include:` list.
 #
-# exclude:
+exclude:
+    - read.md
 #   - .sass-cache/
 #   - .jekyll-cache/
 #   - gemfiles/
