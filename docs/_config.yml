@@ -30,7 +30,7 @@ twitter_username: iarunpaul
 github_username:  iarunpaul
 
 # Build settings
-theme: jekyll-theme-hacker
+theme: minima
 plugins:
   - jekyll-feed
 
