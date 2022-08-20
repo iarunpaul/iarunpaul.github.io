@@ -20,7 +20,7 @@ The readiness probe determines when a container can receive
 The kubelet executes the checks and decides if the app is ready to receive traffic or not.
 Hence the name *readiness*.
 
-**Note:** Containers are always ready which is not always desirable.
+>**Note:** Containers are always ready which is not always desirable.
 
 There's no default value for readiness and
                   liveness.
@@ -51,8 +51,6 @@ Generally we can translate the yaml configuration as the `readiness probe` waits
 >**Note:** Readiness probes runs on the container during its whole lifecycle.
 
 If the probe sends `OK` response then it is considered healthy. If it ends up in 3 consecutive failure, the container will be considered unhealthy and all traffic to the container will be stopped.
-
->**Note:** Readiness probes runs on the container during its whole lifecycle.
 
 For further reads on different types of checks configurable and a deep dive please visit the [kubernets official documentation pages](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
