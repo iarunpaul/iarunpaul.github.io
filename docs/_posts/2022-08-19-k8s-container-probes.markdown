@@ -13,7 +13,7 @@ be broadly as follows:
 - `readiness-probe`
 - `liveness-probe`
 
-1. Readiness Probe
+## 1. Readiness Probe
 The readiness probe determines when a container can receive
                   traffic.
 
