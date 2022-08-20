@@ -52,9 +52,49 @@ Generally we can translate the yaml configuration as the `readiness probe` waits
 
 If the probe sends `OK` response then it is considered healthy. If it ends up in 3 consecutive failure, the container will be considered unhealthy and all traffic to the container will be stopped.
 
+## 2.The liveness probes
+
+Containers crash when there's a fatal error
+
+Lets look at a typical liveness probe config yaml:
+
+```yaml
+livenessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 15
+  periodSeconds: 10
+  successThreshold: 1
+  tcpSocket:
+    port: 80
+  timeoutSeconds: 1
+```
+
+If the application reaches an unrecoverable error, [you should let it crash](https://blog.colinbreck.com/kubernetes-liveness-and-readiness-probes-revisited-how-to-avoid-shooting-yourself-in-the-other-foot/#letitcrash)
+
+Examples of such unrecoverable errors are:
+- an uncaught exception
+- a typo in the code (for dynamic languages)
+- unable to load a header or dependency
+
+Please note that you should not signal a failing Liveness
+                  probe.
+
+Instead, you should immediately exit the process and let the
+                  kubelet restart the container.
+
+The liveness probe determines when a container should be
+                  restarted.
+
+The kubelet executes the check and decides if the container
+                  should be restarted.
+
+
 For further reads on different types of checks configurable and a deep dive please visit the [kubernets official documentation pages](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
-
+> ### Resources:
+- The official Kubernetes documentation offers some practical
+                    advice on how to [configure Liveness, Readiness and Startup Probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
+- [Liveness probes are dangerous](https://srcco.de/posts/kubernetes-liveness-probes-are-dangerous.html) has some information on how to set (or not) dependencies in your readiness probes.
 
 
 
