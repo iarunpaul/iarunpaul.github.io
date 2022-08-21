@@ -7,7 +7,7 @@ categories: jekyll update
 The container probes are among the basic best practices advised for k8s
 cluster before going to production. It helps for deploying self probing and resilient services(restart) on Kubernetes. 							
             
-The differnt categories under which we can put k8s container probes can
+The different categories under which we can put k8s container probes can
 be broadly as follows:
 
 - `readiness-probe`
