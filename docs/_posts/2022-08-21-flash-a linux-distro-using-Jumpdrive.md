@@ -15,7 +15,6 @@ Connect your phone to a computer.
 You fill find your phone just like another USB connected.
 
 ![image](/600px-Jumpdrive.jpg){: width="250" }
-{{ /600px-Jumpdrive.jpg:img?width=250 alt='jmpd-image' }}
 
 Flash your os of choice you already downloaded to this USB you just got listed in the balena etcher.
 
