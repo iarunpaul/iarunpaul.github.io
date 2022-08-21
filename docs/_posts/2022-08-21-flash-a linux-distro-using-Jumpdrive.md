@@ -8,7 +8,7 @@ categories: jekyll update
 If you do not want keep your os distro on the sd card inserted to the [PinePhone](https://www.pine64.org/pinephone/),
 [download the jumpdriver](https://github.com/dreemurrs-embedded/Jumpdrive/releases/) and  flash it to the sd card in hand.
 
-You may choose a tool of your choice for flashing, but [balenaEtcher](https://github.com/dreemurrs-embedded/Jumpdrive/releases/) is my favorite.
+You may choose a tool of your choice for flashing, but [balenaEtcher](https://www.balena.io/etcher/) is my favorite.
 
 Once the JumpDrive is flashed into the sd card, insert the card to the phone and boot it. By default the phone boots from SD card and starts running in Jumpdrive mode.
 The phone reads something like this.
