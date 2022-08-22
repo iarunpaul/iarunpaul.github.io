@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  "Install Poweshell in Ubuntu"
+title:  "PoweShell in Bash Shell"
 date:   2022-08-22 17:27:00 +0530
 categories: jekyll update
 ---
 
-Sometimes you may need to make the poershell shell to live inside the bash shell.
+As the interoperability is increasing day by  day, you may need to make the powershell shell to live inside the bash shell.
 
-Thankfully powershell modules are fully compatable and portable in Linux distro.
+Thankfully powershell modules can be packaged and are fully compatable in Linux distro.
 
 For Ubuntu you may use this script:
 
