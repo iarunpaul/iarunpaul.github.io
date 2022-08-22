@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "PoweShell in Bash Shell"
+title:  "PowerShell in Bash Shell"
 date:   2022-08-22 17:27:00 +0530
 categories: jekyll update
 ---
