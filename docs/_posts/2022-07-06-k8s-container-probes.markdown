@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Kubernetes container probes"
-date:   2022-08-19 19:19:05 +0530
+date:   2022-08-19 11:20:05 +0530
 categories: jekyll update
 ---
 The container probes are among the basic best practices advised for k8s

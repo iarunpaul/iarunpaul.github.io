@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Flash a linux distro using Jumpdrive to a PinePhone"
-date:   2022-08-19 19:19:05 +0530
+date:   2022-08-21 17:12:05 +0530
 categories: jekyll update
 ---
 
