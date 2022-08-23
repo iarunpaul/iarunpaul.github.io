@@ -1,8 +1,9 @@
 ---
 layout: post
 title:  "AWS ECS Fargate with microservices deployment"
-date:   2022-08-24 12:29:00 +0530
+date:   2022-08-23 13:27:00 +0530
 categories: jekyll update
+published: false
 ---
 
 I could find a lot of tutorials where ECS fargate was used to deploy a dockerized container with ease.
@@ -56,20 +57,20 @@ export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
 ```
 Then I decided to run the python script to get it moving.
 And run the script..
-```python
+```sh
 python setup.py -m setup -r us-east-1
 ```
 But I was welcomed with more errors.
 
 This time with python module import error.
-```bash
+```sh
 Traceback (most recent call last):
   File "setup.py", line 11, in <module>
     import boto3
 ```
 
 I tried to install the module:
-```python
+```zsh
 pip3 install boto3
 ```
 
@@ -77,14 +78,14 @@ But the error sticked.
 
 Yes..you are right...I took the wrong python...
 Then I imported with `python2`
-```bash
+```zsh
 sudo apt install python-pip
 pip install boto3
 ```
 
 Now the script ran with AWS errors:
 
-```bash
+```zsh
 INFO:__main__:Mode: setup
 /home/iarunpaul/.local/lib/python2.7/site-packages/boto3/compat.py:86: PythonDeprecationWarning: Boto3 will no longer support Python 2.7 starting July 15, 2021. To continue receiving service updates, bug fixes, and security updates please upgrade to Python 3.6 or later. More information can be found here: https://aws.amazon.com/blogs/developer/announcing-end-of-support-for-python-2-7-in-aws-sdk-for-python-and-aws-cli-v1/
   warnings.warn(warning, PythonDeprecationWarning)
