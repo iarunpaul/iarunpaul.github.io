@@ -43,9 +43,15 @@ tar xzvf apache-maven-3.8.6-bin.tar.gz
 ```
 Tarball is available [here](https://maven.apache.org/download.cgi).
 
-But apache maven has dependency on JDK but unfortunately the JDK by oracle is not open source anymore and hence I had to install the openjdk to keep it going.
+But apache maven has dependency on JDK but unfortunately the JDK by oracle is not open source anymore in Ubuntu-16.04 or higher and hence I had to install the openjdk to keep it going.
 
-The [Ask Ubuntu](https://askubuntu.com/questions/761127/how-do-i-install-openjdk-7-on-ubuntu-16-04-or-higher) helped me to figure out that.
+The [Ask Ubuntu](https://askubuntu.com/questions/761127/how-do-i-install-openjdk-7-on-ubuntu-16-04-or-higher) and [Stackoverflow](https://stackoverflow.com/questions/16263556/installing-java-7-on-ubuntu) helped me to figure out that.
+
+Better install  `openjdk-8` or higher.
+
+```bash
+sudo apt-get install openjdk-8-jdk
+```
 
 Further struggled with the `PATH` variable and `JAVA-HOME` ENV variable set up, since it was not properly documented.
 
