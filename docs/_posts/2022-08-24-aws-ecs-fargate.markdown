@@ -1,102 +1,224 @@
 ---
 layout: post
-title:  "AWS ECS Fargate with microservices deployment"
-date:   2022-08-23 13:27:00 +0530
+title: "AWS ECS Fargate with Cloud Map service discovery for Microservices"
+date: 2022-08-23 13:27:00 +0530
 categories: jekyll update
-published: false
+published: true
 ---
 
 I could find a lot of tutorials where ECS fargate was used to deploy a dockerized container with ease.
 
 But I found it bit difficult to get an example deployment of a microservices application with all the internal communications with the application microservices layers.
 
-And, of ource I bumped into many troubles to make it up; I thought I will just document it for an easy walkthrough for anyone else to do this again.
+And, of cource I bumped into many troubles to make it up; I thought I will just document it for an easy walkthrough for anyone else who would like to check it.
 
-I could find an example from [amazon blogs](https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/deploy-java-microservices-on-amazon-ecs-using-aws-fargate.html),  and thankfully the repo was also available at [here](https://github.com/aws-samples/amazon-ecs-java-microservices).
+I could find an example from [amazon blogs](https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/deploy-java-microservices-on-amazon-ecs-using-aws-fargate.html), but the example is very old one and the `jdk` not supported in most OSes now.
 
-So lets get to it,
+I did some more researches and googling, and simplified and modified some good examples, I could find whose links are given in the resources section in the end of this post.
 
-The deployment consists of three stages:
+So lets do it,
 
-- Part One: Moving existing Java Spring application to a container deployed using ECS
-- Part Two: Breaking the monolith apart into microservices on ECS
-- Part Three: Create a continuous integration and continuous delivery
+We have an imaginary ecommerce store selling books, which consists of three apis:
 
-The turial gave prerequisites links as follows:
+- Purchases Api: This application gives the purchases as a jason response
+- Recommendations Api: Gives purchase recommendations for relevant books
+- Dashboard Api: Create a consolidated dashboard data response, querying both the Purchase and Recommendations Api
+
+The Apis are very simple .Net Core Apis and the code is availabel at [git repo]().
 
 #### Prerequisites
-You will need to have the latest version of the AWS CLI and maven installed before running the deployment script. If you need help installing either of these components, please follow the links below:
+
+You will need to have the latest version of the AWS CLI (version 2 or more) and docker installed before running the deployment script. If you need help installing either of these components, please follow the links below:
 
 - [Installing the AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/installing.html)
-- [Installing Maven](https://maven.apache.org/install.html)
 - [Installing Docker](https://docs.docker.com/engine/installation/)
-- [Installing Python](https://www.python.org/downloads/)
-- [Installing JQ](https://stedolan.github.io/jq/download/)
 
-But unfortunately `Maven` installation didn't work for me.
+#### Creating the VPC, with related infrastructure.
 
->**Note**: The set up uses Ubuntu-18.04 Distro in WSL2
+We need a virtual network (VPC) to be configured into which we are deploying the ECS cluster and LoadBalancer with atleast two subnets and corresponding route table and gateway configured.
 
-I made it work with the following the installation commands:
-```bash
-tar xzvf apache-maven-3.8.6-bin.tar.gz
+Since configuring all the settings at the AWS management console can be tedious and erroneous, I would prefer to deploy them using the CloudFormation Template:
+
+The file is available at the [repo](https://github.com/iarunpaul/AWSECSServiceDiscovey.git) and it looks like this:
+
+```yaml
+AWSTemplateFormatVersion: "2010-09-09"
+Parameters:
+Mappings:
+  SubnetConfig:
+    VPC:
+      CIDR: "10.0.0.0/16"
+    PublicOne:
+      CIDR: "10.0.0.0/24"
+    PublicTwo:
+      CIDR: "10.0.1.0/24"
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      CidrBlock: !FindInMap ["SubnetConfig", "VPC", "CIDR"]
+  PublicSubnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone:
+        Fn::Select:
+          - 0
+          - Fn::GetAZs: { Ref: "AWS::Region" }
+      VpcId: !Ref "VPC"
+      CidrBlock: !FindInMap ["SubnetConfig", "PublicOne", "CIDR"]
+      MapPublicIpOnLaunch: true
+  PublicSubnetTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone:
+        Fn::Select:
+          - 1
+          - Fn::GetAZs: { Ref: "AWS::Region" }
+      VpcId: !Ref "VPC"
+      CidrBlock: !FindInMap ["SubnetConfig", "PublicTwo", "CIDR"]
+      MapPublicIpOnLaunch: true
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+  GatewayAttachement:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref "VPC"
+      InternetGatewayId: !Ref "InternetGateway"
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref "VPC"
+  PublicRoute:
+    Type: AWS::EC2::Route
+    DependsOn: GatewayAttachement
+    Properties:
+      RouteTableId: !Ref "PublicRouteTable"
+      DestinationCidrBlock: "0.0.0.0/0"
+      GatewayId: !Ref "InternetGateway"
+  PublicSubnetOneRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnetOne
+      RouteTableId: !Ref PublicRouteTable
+  PublicSubnetTwoRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnetTwo
+      RouteTableId: !Ref PublicRouteTable
 ```
-Tarball is available [here](https://maven.apache.org/download.cgi).
 
-But apache maven has dependency on JDK but unfortunately the JDK by oracle is not open source anymore in Ubuntu-16.04 or higher and hence I had to install the openjdk to keep it going.
+Goto the Management Console Stack creation page and upload the file for the deployment of file.
 
-The [Ask Ubuntu](https://askubuntu.com/questions/761127/how-do-i-install-openjdk-7-on-ubuntu-16-04-or-higher) and [Stackoverflow](https://stackoverflow.com/questions/16263556/installing-java-7-on-ubuntu) helped me to figure out that.
+![ConsoleImage](/images/2022-08-24-aws-ecs-fargate/ConsoleImageStack.png)
+![ConsoleImage](/images/2022-08-24-aws-ecs-fargate/ConsoleImageStack2.png)
 
-Better install  `openjdk-8` or higher.
+Give parameter names, click `Next` and complete the stack deployment.
 
-```bash
-sudo apt-get install openjdk-8-jdk
+Once done, the `VPC` along with the configurations will de created.
+
+#### Create cluster
+
+Once the deployment is done create the ECS cluster with the `VPC` created in the previous step.
+
+![ConsoleImage](/images/2022-08-24-aws-ecs-fargate/ConsoleClusterCreate.png)
+
+#### Create api images and push to repositories
+
+You can clone the [Api repo](https://github.com/iarunpaul/AWSECSServiceDiscovey.git) and use the docker file to create the images.
+
+Run docker commands from the root directory.
+
+```powershell
+ docker build -t dashboardapi:latest . -f .\DashboardApi\Dockerfile
+
 ```
 
-Further struggled with the `PATH` variable and `JAVA-HOME` ENV variable set up, since it was not properly documented.
+Create Repositories for all the 3 Apis with an appropriate name.
 
-Finally I did this to make it work.
+![ConsoleImage](/images/2022-08-24-aws-ecs-fargate/CreateRepo.png)
 
-```bash
-PATH=$PWD/apache-maven-3.8.6/bin:$PATH
-export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
-```
-Then I decided to run the python script to get it moving.
-And run the script..
-```sh
-python setup.py -m setup -r us-east-1
-```
-But I was welcomed with more errors.
+Notedown the account url for the repositories.
 
-This time with python module import error.
-```sh
-Traceback (most recent call last):
-  File "setup.py", line 11, in <module>
-    import boto3
-```
+Log in to the repositories using the `aws cli`.
 
-I tried to install the module:
-```zsh
-pip3 install boto3
+First use the account key, access_secret and session_token obtained from the management console.
+
+![ConsoleImage](/images/2022-08-24-aws-ecs-fargate/ProgrammaticAccess1.png)
+
+![ConsoleImage](/images/2022-08-24-aws-ecs-fargate/ProgrammaticAccess2.png)
+
+Copy paste the secrets into the terminal.
+
+Use the `aws` cli to login to the corresponding repository.
+
+```powershell
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin [ECR Account Url]/[Imagename]
+docker tag [Local Image Name] [ECR Account Url]/[Imagename]
+docker push [ECR Account Url]/[Imagename]
 ```
 
-But the error sticked.
+> **Note**: Push all the 3 images to dedicated repos for each.
 
-Yes..you are right...I took the wrong python...
-Then I imported with `python2`
-```zsh
-sudo apt install python-pip
-pip install boto3
+#### Create Load Balancer in the same `VPC`
+
+Create the Laod balancer using the management console.
+![ConsoleImage](/images/2022-08-24-aws-ecs-fargate/CreateLoadBalncer1.png)
+
+![ConsoleImage](/images/2022-08-24-aws-ecs-fargate/CreateLoadBalncer2.png)
+
+Create a default target group and attach it with the Load Balancer
+
+![ConsoleImage](/images/2022-08-24-aws-ecs-fargate/CreateLoadBalncer3.png)
+
+#### Define 3 Task Definition for all the 3 images.
+
+![ConsoleImage](/images/2022-08-24-aws-ecs-fargate/TaskDefinition.png)
+
+#### Create 3 services using the 3 Task definitions created
+
+Create the service using the task definition
+
+![ConsoleImage](/images/2022-08-24-aws-ecs-fargate/ServiceCreate1.png){: width="700" }
+
+Finally the 3 services should be up and running something like this
+
+![ConsoleImage](/images/2022-08-24-aws-ecs-fargate/ServicesRunning.png)
+
+#### Check the services
+
+Go to the Load balncer and find its DNS Name
+
+![ConsoleImage](/images/2022-08-24-aws-ecs-fargate/LBPublicIP.png)
+
+Go to the dashboard routing path and you should get the consolidated dashboard data as follows:
+
+```json
+{
+  "purchases": [
+    {
+      "bookName": "The Star Wars",
+      "dateOfPurchase": "2022-01-01T00:00:00",
+      "price": 100.99
+    },
+    {
+      "bookName": "The Gladiator",
+      "dateOfPurchase": "2022-01-01T00:00:00",
+      "price": 49.99
+    }
+  ],
+  "recommendations": [
+    {
+      "bookName": "The Eternals",
+      "dateOfPublication": "2021-12-12T00:00:00",
+      "price": 100.99
+    },
+    {
+      "bookName": "The Seize",
+      "dateOfPublication": "2010-12-12T00:00:00",
+      "price": 39.99
+    }
+  ]
+}
 ```
-
-Now the script ran with AWS errors:
-
-```zsh
-INFO:__main__:Mode: setup
-/home/iarunpaul/.local/lib/python2.7/site-packages/boto3/compat.py:86: PythonDeprecationWarning: Boto3 will no longer support Python 2.7 starting July 15, 2021. To continue receiving service updates, bug fixes, and security updates please upgrade to Python 3.6 or later. More information can be found here: https://aws.amazon.com/blogs/developer/announcing-end-of-support-for-python-2-7-in-aws-sdk-for-python-and-aws-cli-v1/
-  warnings.warn(warning, PythonDeprecationWarning)
-INFO:botocore.credentials:Found credentials in shared credentials file: ~/.aws/credentials
-ERROR:__main__:An error occurred (InvalidClientTokenId) when calling the CreateRole operation: The security token included in the request is invalid
-```
-
-I will have to look at it and to be continued with my troubleshooting....
