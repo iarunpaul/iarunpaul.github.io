@@ -4,6 +4,7 @@ title:  "PowerShell in Bash Shell"
 date:   2022-06-22 17:27:00 +0530
 categories: jekyll update
 ---
+![image](/images/2022-06-22-install-powershell-in-ubuntu/pwsh-bash.jpg){: width="400" }
 
 As the interoperability is increasing day by  day, you may need to make the powershell shell to live inside the bash shell.
 
