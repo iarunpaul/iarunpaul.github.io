@@ -28,8 +28,40 @@ sudo apt-get install -y powershell
 pwsh
 ```
 
-And, that's it you can run the powershell commands now from a bash prompt...
+And, that's it, you can run the powershell commands now from a bash prompt...
+```bash
+PowerShell 7.2.6
+Copyright (c) Microsoft Corporation.
 
+https://aka.ms/powershell
+Type 'help' to get help.
+
+PS /home/user/userhome>
+```
+The powershell comes as an extension, hence you can try some interoperational commands...
+
+Run PoweShell commands with ease
 {% highlight powershell %}
-iarunpaul@DESKTOP-XYZ:~/code/docs$ Write-Output "This is a powershell command."
+PS /home/user/userhome> Write-Output "This is a powershell command."
 {% endhighlight  %}
+
+Create a multiline Powershell var
+{% highlight powershell %}
+PS /home/user/userhome> $iAmPWSHVar=@"
+>> I am a
+>> powershell var
+>> "@
+PS /home/user/userhome> $iAmPWSHVar
+I am a
+powershell var
+{% endhighlight  %}
+
+Now lets try a combo with the hardcore Linux `sed` replacement with the powershell variable as input, thats fun ...
+{% highlight powershell %}
+
+PS /home/user/userhome> $iAmPWSHVar | sed 's/powershell/powershellBash/g'
+I am a
+powershellBash var
+{% endhighlight  %}
+
+This comes really handy, in cases like when you follow a tutorial in Powershell, but you have to deal only from a bash shell...
