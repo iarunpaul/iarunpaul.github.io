@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "AWS ECS Fargate with Cloud Map service discovery for Microservices"
-date: 2022-08-23 13:27:00 +0530
+date: 2022-08-24 13:27:00 +0530
 categories: jekyll update
 published: true
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Connect USB devices in WSL2"
-date:   2022-08-24 00:27:00 +0530
+date:   2022-08-10 00:27:00 +0530
 categories: jekyll update
 # published: false
 ---
