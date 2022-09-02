@@ -14,7 +14,7 @@ Once the JumpDrive is flashed into the sd card, insert the card to the phone and
 
 The phone reads something like this.
 
-![image](/600px-Jumpdrive.jpg){: width="250" }
+![image](/images/2022-06-21-flash-a linux-distro-using-Jumpdrive/600px-Jumpdrive.jpg){: width="250" }
 
 Connect your phone to a computer.
 
@@ -26,6 +26,6 @@ Once the flashing is completed successfully disconnect the phone, remove the sd 
 
 Voila!!
 
-![Ubuntu-Touch](/Ubuntu-Touch.png){: width="500"}
+![Ubuntu-Touch](/images/2022-06-21-flash-a linux-distro-using-Jumpdrive/Ubuntu-Touch.png){: width="500"}
 
 Your PinePhone now boots from the internal eMMc drive with your favorite Linux flavor.
