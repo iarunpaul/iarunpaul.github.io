@@ -15,7 +15,7 @@ Lets publish a simple demo public NuGet package  to get the feel of how to get i
 As a sample package to publish, we would create a logger package that can log both custom way and using the Microsoft Logging Extension `ILogger` logging.
 
 Lets create a new Class Library using Visual Studio   
-![image](\images\New folder\Configure-ClassLibrary-2023-03-18 215317.png){: width="500" }
+![image](\images\2023-03-18-pack-and-publish-nuget-package\Configure-ClassLibrary-2023-03-18 215317.png){: width="400" }
 
 The solution would like this:    
 ![image](\images\2023-03-18-pack-and-publish-nuget-package\SolutionStructure-2023-03-18 220026.png)
