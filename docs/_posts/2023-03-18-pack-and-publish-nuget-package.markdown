@@ -85,3 +85,9 @@ If you don't have an account at nuget.org, you can create one for free and login
 Once logged in, click the *Upload* tab and browse to the binary we have built and packed in the last step and upload it.
 
 ![image](\images\2023-03-18-pack-and-publish-nuget-package\NuGet Upload-2023-03-18 223723.png)
+
+Now if you go to the nuget public packages, in your *Manage Nuget Packages*, you will find the NuGet package published and ready to be consumed in your projects.
+
+We try to consume the same package we created in the upcoming blog for Logging in Console app....
+
+***Happy coding....***
