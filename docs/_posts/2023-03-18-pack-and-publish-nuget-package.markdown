@@ -78,7 +78,7 @@ It will generate the binary files as shown.
 
 ![image](\images\2023-03-18-pack-and-publish-nuget-package\packed-binary-2023-03-18 222827.png)
 
-Now its time to publish the package to the [Nuget repository](nuget.org).
+Now its time to publish the package to the [Nuget repository](www.nuget.org).
 
 If you don't have an account at nuget.org, you can create one for free and login to your account.
 
