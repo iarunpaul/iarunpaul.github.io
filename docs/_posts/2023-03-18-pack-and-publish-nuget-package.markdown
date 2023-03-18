@@ -1,15 +1,19 @@
 ---
 layout: post
 title:  "Pack and publish a NuGet package"
-date:   2022-08-30 00:27:00 +0530
+date:   2023-03-18 06:28:00 +0530
 categories: jekyll update
 # published: false
 ---
 
-I wanted to run `ip` command on my Ubuntu 18.04.
+Lets publish a simple demo public NuGet package  to get the feel of how to get it done
 
-The package was not installed, so tried a package search....
+> **Prerequisites**  
+>Visual Studio 2022  
+>Dotnet 7 Runtime
 
+Lets create a new Class Library using Visual Studio   
+![image](\images\New folder\Configure-ClassLibrary-2023-03-18 215317.png){: width="250" }
 ```bash
 root@nginx$ apt list -a ip
 ```
