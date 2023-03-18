@@ -15,7 +15,7 @@ Lets publish a simple demo public NuGet package  to get the feel of how to get i
 As a sample package to publish, we would create a logger package that can log both custom way and using the Microsoft Logging Extension `ILogger` logging.
 
 Lets create a new Class Library using Visual Studio   
-![image](\images\New folder\Configure-ClassLibrary-2023-03-18 215317.png){: width="250" }
+![image](\images\New folder\Configure-ClassLibrary-2023-03-18 215317.png){: width="500" }
 
 The solution would like this:    
 ![image](\images\2023-03-18-pack-and-publish-nuget-package\SolutionStructure-2023-03-18 220026.png)
@@ -62,3 +62,18 @@ namespace DemoPackage
 
 }
 ```
+
+It's packing time...    
+ First right click the project and select the properties.
+
+Then click on the package tab on the left pane and update all the values including the `PackageId`, `Title`, `PackageVersion`, `Author` etc.
+
+![image](\images\2023-03-18-pack-and-publish-nuget-package\PackageProperties-2023-03-18 221813.png)
+
+After saving again right click on the project and pack it into binary.
+
+![image](\images\2023-03-18-pack-and-publish-nuget-package\Pack-2023-03-18 222013.png)
+
+It will generate the binary files as shown.
+
+![image](\images\2023-03-18-pack-and-publish-nuget-package\packed-binary-2023-03-18 222827.png)
