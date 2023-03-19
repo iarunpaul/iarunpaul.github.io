@@ -29,11 +29,11 @@ namespace DemoPackage
 {
     public class Logger<T>
     {
-        public void LogInformation<T>(string message)
+        public void LogInformation(string message)
         {
             Console.WriteLine("{0}.{1} information logged to console from DemoLogger",typeof(T), message);
         }
-        public void LogDebug<T>(string message)
+        public void LogDebug(string message)
         {
             Console.WriteLine("{0}.{1} debug logged to console from DemoLogger", typeof(T), message);
         }
@@ -88,6 +88,6 @@ Once logged in, click the *Upload* tab and browse to the binary we have built an
 
 Now if you go to the nuget public packages, in your *Manage Nuget Packages*, you will find the NuGet package published and ready to be consumed in your projects.
 
-We try to consume the same package we created in the upcoming blog for Logging in Console app....
+We will try to consume the same package we created in the upcoming blog for Logging in Console app....
 
 ***Happy coding....***
