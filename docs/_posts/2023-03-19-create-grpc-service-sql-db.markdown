@@ -13,7 +13,7 @@ We will look at how to create a gRpc service that connects to a sql database and
 >Dotnet 7 Runtime
 
 Lets create a new gRpc service project using Visual Studio   
-![image](\images\2023-03-19-create-grpc-service-sql-db\Create Project 2023-03-19 215236.png){: width="400" }
+![image](\images\2023-03-19-create-grpc-service-sql-db\Create Project 2023-03-19 215236.png){: width="600" }
 
 The solution would like this:    
 ![image](\images\2023-03-19-create-grpc-service-sql-db\Solution Initial 2023-03-19 215715.png)
@@ -23,8 +23,6 @@ By default, gRPC uses Protocol Buffers, Google’s mature open source mechanism 
 So we have to create a `products.proto` file that defines the gRpc service`ProductsService` with the data structure for exchanging product data between the clients(we will create the clients later).
 
 The proto file would look like this.
-
-
 
 ```go
 
@@ -249,5 +247,7 @@ app.MapGrpcService<ProductsAppService>();
 ```
 Start your application. If you did everything right you would be welcomed with a console of a gRPC service hosted successfully.
 ![image](\images\2023-03-19-create-grpc-service-sql-db\gRPC Service Serving 2023-03-19 224957.png)
+
+We will continue consuming the gRPC service with the gRPC client in the coming blog.....
 
 ***Happy coding....***
