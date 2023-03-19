@@ -13,7 +13,7 @@ We will look at how to create a gRpc service that connects to a sql database and
 >Dotnet 7 Runtime
 
 Lets create a new gRpc service project using Visual Studio   
-![image](\images\2023-03-19-create-grpc-service-sql-db\Create Project 2023-03-19 215236.png){: width="600" }
+![image](\images\2023-03-19-create-grpc-service-sql-db\Create Project 2023-03-19 215236.png){: width=600px }
 
 The solution would like this:    
 ![image](\images\2023-03-19-create-grpc-service-sql-db\Solution Initial 2023-03-19 215715.png)
