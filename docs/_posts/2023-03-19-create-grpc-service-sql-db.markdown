@@ -248,6 +248,8 @@ app.MapGrpcService<ProductsAppService>();
 Start your application. If you did everything right you would be welcomed with a console of a gRPC service hosted successfully.
 ![image](\images\2023-03-19-create-grpc-service-sql-db\gRPC Service Serving 2023-03-19 224957.png)
 
+This blog post is inspired by [the great article in C#](https://www.c-sharpcorner.com/article/grpc-service-create-using-net-core-6-0-entity-framework-for-crud-operation/) Corner by Shirsendu Nandi. But the post is old that it `Protobuf` library is not working as explained in the post. That is why this post. 
+
 We will continue consuming the gRPC service with the gRPC client in the coming blog.....
 
 ***Happy coding....***
