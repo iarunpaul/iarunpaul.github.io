@@ -272,4 +272,124 @@ To really understand what does it happen under the hood when you try to authenti
 [Fiddler Everywhere]() is a great tool for that, which can be installed free on a trial basis.
 
 Once you installed the tool, open it 
+
+Clear the Fiddler pane for cleaner analysis, you can toggle the live streaming to off position to remove the clutter of calls,except for the application calls.
+
+Now go to the postman and make a call to `` with the Authentication token.
+Lets see what all http calls we could intercept during the process.
+
+We can see that there are two call our application makes to the AAD endpoints.
+
+![image]()
+
+
+Lets have a closer look...
+
+First call is made to the endpoint `https://login.microsoftonline.com/{tenant_id}/.well-known/openid-configuration`
+
+```http
+GET https://login.microsoftonline.com/{tenant_id}/v2.0/.well-known/openid-configuration HTTP/1.1
+Host: login.microsoftonline.com
+x-client-Ver: 6.17.0.0
+x-client-SKU: ID_NETSTANDARD2_0
+User-Agent: Microsoft ASP.NET Core JwtBearer handler
+....................
+
+
+```
+
+where the repose gives another AAD endpoint for the public keys.
+
+```http
+{
+    "token_endpoint": "https://login.microsoftonline.com/8f6bd982-92c3-4de0-985d-0e287c55e379/oauth2/v2.0/token",
+    "token_endpoint_auth_methods_supported": [
+        "client_secret_post",
+        "private_key_jwt",
+        "client_secret_basic"
+    ],
+    "jwks_uri": "https://login.microsoftonline.com/8f6bd982-92c3-4de0-985d-0e287c55e379/discovery/v2.0/keys",
+    "response_modes_supported": [
+        "query",
+        "fragment",
+        "form_post"
+    ],
+   .........
+   .........
+}
+```
+
+The second call is to the exact same public key endpoint received in the first call `"jwks_uri"`.
+ie, ``
+```http
+GET https://login.microsoftonline.com/{tenant_id}/discovery/v2.0/keys HTTP/1.1
+Host: login.microsoftonline.com
+x-client-Ver: 6.17.0.0
+x-client-SKU: ID_NETSTANDARD2_0
+User-Agent: Microsoft ASP.NET Core JwtBearer handler
+...................
+....................
+
+
+
+```
+
+And the response is a list of public keys...
+
+```http
+{
+    "keys": [
+        {...
+         },
+         {...
+         },
+         {...
+         },
+         {...
+         },
+         {...
+         },
+        {
+            "kty": "RSA",
+            "use": "sig",
+            "kid": "-KI3Q9nNR7bxxxxxxxxxxx",
+            "x5t": "-KI3Q9nNR7bxxxxxxxxxxx",
+            "n": "tJL6Wr2JUsxLyNezPQh1J6z.........................
+            ........................
+            .............................",
+            "e": "AQABD",
+            "x5c": [
+                "MIIDBTCCAe2gAwIBAg.....................................
+                ........................................................
+                ......................................."
+            ],
+            "issuer": "https://login.microsoftonline.com/{tenant_id}/v2.0"
+        },       
+        {...
+         },
+        {...
+        }
+    ]
+}
+
+```
+
+If we inspect we could see that one of the keys, is matching with the key id `kid` in the header of the token we used.
+
+```json
+HEADER:ALGORITHM & TOKEN TYPE
+
+{
+  "typ": "JWT",
+  "alg": "RS256",
+  "kid": "-KI3Q9nNR7bxxxxxxxxxxx"
+}
+```
+
+And using this public key the token is already signature verified....
+
+Yeppie...we got the answer (infact, the application got the answer), the token is verified by one of the public keys issued by the AAD.
+
+Yes, lets go ahead and trust the token, its from the safe hands....
+
 ***Happy coding....***
