@@ -241,7 +241,7 @@ RSASHA256(
   base64UrlEncode(payload),
   
 {
-  "e": "AQABadad",
+  "e": "AQABADAD",
   "kty": "RSA",
   "n": "btsbnnrsn6wSoDAhgRYSDkaMuEHy75VikiB8wg25WuR96gdMpookdlRvh7SnRvtjQN9b5m4zJCMpSRcJ5DuXl4mcd7Cg3Zp1C5-JmMq8J7m7OS9HpUQbA1yhtCHqP7XA4UnQI28J-TnGiAa3viPLlq0663Cq6hQw7jYo5yNjdJcV5-FS-xNV7UHR4zAMRruMUHxte1IZJzbJmxjKoEjJwDTtcd6DkI3yrkmYt8GdQmu0YBHTJSZiz-M10CY3LbvLzf-tbBNKQ_gfnGGKF7MvRCmPA_YF_APynrIG7p4vPDRXhpaggtehbths"
 }
@@ -269,7 +269,7 @@ Your application became smarter with the Microsoft.Identity platform to verify t
 
 To really understand what does it happen under the hood when you try to authenticate/authorize your application, we need some http interceptor to analyze all the http calls the application makes.
 
-[Fiddler Everywhere]() is a great tool for that, which can be installed free on a trial basis.
+[Fiddler Everywhere](https://www.telerik.com/fiddler/fiddler-everywhere) is a great tool for that, which can be installed free on a trial basis.
 
 Once you installed the tool, open it 
 
@@ -280,10 +280,12 @@ Lets see what all http calls we could intercept during the process.
 
 We can see that there are two call our application makes to the AAD endpoints.
 
-![image]()
+![image](\images\2023-03-29-guess-how-aad-auth-token-gets-verified-by-the-application\Fiddler calls 2023-04-05 011924.png)
 
 
 Lets have a closer look...
+
+![image](\images\2023-03-29-guess-how-aad-auth-token-gets-verified-by-the-application\Fiddler panes 2023-04-05 015703.png)
 
 First call is made to the endpoint `https://login.microsoftonline.com/{tenant_id}/.well-known/openid-configuration`
 
@@ -302,13 +304,13 @@ where the repose gives another AAD endpoint for the public keys.
 
 ```http
 {
-    "token_endpoint": "https://login.microsoftonline.com/8f6bd982-92c3-4de0-985d-0e287c55e379/oauth2/v2.0/token",
+    "token_endpoint": "https://login.microsoftonline.com/{tenant_id}/oauth2/v2.0/token",
     "token_endpoint_auth_methods_supported": [
         "client_secret_post",
         "private_key_jwt",
         "client_secret_basic"
     ],
-    "jwks_uri": "https://login.microsoftonline.com/8f6bd982-92c3-4de0-985d-0e287c55e379/discovery/v2.0/keys",
+    "jwks_uri": "https://login.microsoftonline.com/{tenant_id}/discovery/v2.0/keys",
     "response_modes_supported": [
         "query",
         "fragment",
