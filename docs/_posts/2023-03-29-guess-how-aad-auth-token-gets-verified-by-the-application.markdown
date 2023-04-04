@@ -1,60 +1,109 @@
 ---
 layout: post
-title:  "Guess how AAD Auth token is signature verified by the .Net application"
+title:  "Guess how AAD Auth token signature is verified by the .Net application"
 date:   2023-03-29 02:12:00 +0530
 categories: jekyll update
 published: true
 ---
+<div style="text-align: center;">
+  <img src="\images\2023-03-29-guess-how-aad-auth-token-gets-verified-by-the-application\Title pic.jpg" style="width: 500px; height: auto;">
+</div>
+
+---
+
+<br>
+<br>
 
 Azure Active Directory simplifies the burden of Authentication and Authorization process while securing an application.
 
-But have you ever guessed how could the process flow is so robust and flawless, so that the token (*JWT token*) is verified for the issuer and cannot be tampered.
+But have you ever guessed, how could the process flow is so robust and flawless, so that the token (*JWT token*) is verified for the issuer and cannot be tampered.
 
 Let's have a look at how we can secure a simple .Net minimal api using the AAD Authentication (*Microsoft Identity Platform*).
 
-So, just jump in to create a minimal api using visual studio
+So, just jump in to create a minimal api using Visual Studio.
 
 > **Prerequisites**  
 >Visual Studio 2022  
 >Dotnet 7 Runtime
 
-Create an api project project using Visual Studio   
+Create an api project project using Visual Studio
+
+---
+  
+<br>
+ 
 ![image](\images\2023-03-29-guess-how-aad-auth-token-gets-verified-by-the-application\Get Started 2023-03-29 193113.png){: width=600px }
 
-We need only minimal setup to implement *Microsoft.Platform* authentication.    
+<br>
+
+We need only minimal setup to implement *Microsoft.Platform* authentication. 
+
+---
+  
+<br>
+
 ![image](\images\2023-03-29-guess-how-aad-auth-token-gets-verified-by-the-application\Minimal Setup 2023-03-29 193644.png)
 
 The solution looks simple as:
 
-![image](\images\2023-03-29-guess-how-aad-auth-token-gets-verified-by-the-application\Minimal Soln 2023-03-29 194013.png)
+---
+  
+<br>
 
+<div style="text-align: center;">
+  <img src="\images\2023-03-29-guess-how-aad-auth-token-gets-verified-by-the-application\Minimal Soln 2023-03-29 194013.png">
+</div>
+<br>
 Right click the connected services to add the *Microsoft Identity* platform as a connected service dependency.
 
-![image](\images\2023-03-29-guess-how-aad-auth-token-gets-verified-by-the-application\MI as connected service 2023-03-29 194757.png)
+---
+<br>
+<div style="text-align: center;">
+  <img src="\images\2023-03-29-guess-how-aad-auth-token-gets-verified-by-the-application\MI as connected service 2023-03-29 194757.png">
+</div>
 
 Click plus button.
+
+---
+<br>
 
 ![image](\images\2023-03-29-guess-how-aad-auth-token-gets-verified-by-the-application\Add MI dependency 2023-03-29 195156.png)
 
 Search `identity`
+
+---
+<br>
 
 ![image](\images\2023-03-29-guess-how-aad-auth-token-gets-verified-by-the-application\Search MI 2023-03-29 195347.png)
 
 Click Next.
 
 
+---
+<br>
+
 ![image](\images\2023-03-29-guess-how-aad-auth-token-gets-verified-by-the-application\Click Next 2023-03-29 200345.png)
 
-Click Next
+Click 
+
+---
+<br>
+
 It lists the App Registrations in the Active Directory.
 
 We are using a new app registration to authenticate our app.
 
-So lets click on the create button.
+So let's click on the create button.
+
+---
+<br>
 
 ![image](\images\2023-03-29-guess-how-aad-auth-token-gets-verified-by-the-application\Create aapregs 2023-03-29 200715.png)
 
 Name the app and tap `Register`
+
+---
+<br>
 
 ![image](\images\2023-03-29-guess-how-aad-auth-token-gets-verified-by-the-application\Reg App 2023-03-29 201337.png)
 
@@ -62,14 +111,24 @@ Tap `Next`
 
 Summary would look like
 
+---
+<br>
+
 ![image](\images\2023-03-29-guess-how-aad-auth-token-gets-verified-by-the-application\Finish reg 2023-03-29 201627.png)
 
 If the App Registration is completed successfully, you would see a screen similar to this.
+
+---
+<br>
 
 ![image](\images\2023-03-29-guess-how-aad-auth-token-gets-verified-by-the-application\Reg Complete 2023-03-29 201716.png)
 
 Now that, you have added the `Microsoft Identity Platform` dependency successfully, you can see some additional codes in your `Program.cs`.
 There would be some additional packages installed and referenced in the `Program.cs`.
+
+---
+<br>
+
 ```csharp
         using Microsoft.AspNetCore.Authentication;
         using Microsoft.AspNetCore.Authentication.JwtBearer;
