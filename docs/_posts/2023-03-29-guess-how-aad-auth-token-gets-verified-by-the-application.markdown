@@ -3,7 +3,7 @@ layout: post
 title:  "Guess how AAD Auth token is signature verified by the .Net application"
 date:   2023-03-29 02:12:00 +0530
 categories: jekyll update
-published: true
+published: false
 ---
 
 Azure Active Directory simplifies the burden of Authentication and Authorization process while securing an application.
