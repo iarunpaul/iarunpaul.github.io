@@ -223,7 +223,7 @@ We didn't add any Authorization header, so, as expected `401` page.
 
 Where we can get the token fromm????
 
-If you check the [microsoft documentation](), it describes different flows and request to get a token from the end points, ie, the AAD endpoints.
+If you check the [microsoft documentation](https://learn.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-implicit-grant-flow?WT.mc_id=AZ-MVP-5003875), it describes different flows and request to get a token from the end points, ie, the AAD endpoints.
 
 For simplicity we are using `implicit` flow and the url to generate a token in the callback looks like this...
 
