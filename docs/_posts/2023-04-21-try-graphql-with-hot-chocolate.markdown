@@ -482,7 +482,7 @@ After successful installation of packages lets run the migration and update the 
 ---
 <br>
 
-![image](\images\2023-04-21-try-graphql-with-hot-chocolate\ScreenRecorderProject9.gif)
+![image](\images\2023-04-21-try-graphql-with-hot-chocolate\DatabseMigration.gif)
 
 
 ---
@@ -514,7 +514,7 @@ builder.Services.AddGraphQLServer()
 
 ```
 
-Thanks to `HotChocolate` package we will get a ***Banana Cake Interface*** to query the GraphQL easily.
+Thanks to `HotChocolate` package we will get a ***Banana Cake Pop Interface*** to query the GraphQL easily.
 
 Lets try that....
 
@@ -574,9 +574,9 @@ In order to make `graphql` your launching default endpoint, change `launchSettin
 ```
 Run the application now and check it...
 
-Now you should be able to query the GraphQl through the `Banana Cake Interface`.
+Now you should be able to query the GraphQl through the `Banana Cake Pop Interface`.
 
-![image](\images\2023-04-21-try-graphql-with-hot-chocolate\BananaCake UI.gif)
+![image](\images\2023-04-21-try-graphql-with-hot-chocolate\BananaCakePop1.gif)
 
 The better part of it is...our query works...
 
@@ -588,7 +588,8 @@ Let's look back at our querying class `MyQuery` to better understand it.
 ```csharp
   public class MyQuery
     {
-       public IQueryable<Department> GetDepartments() => new List<Department>().        AsQueryable();
+       public IQueryable<Department> GetDepartments() => new List<Department>()
+                                                                  .AsQueryable();
     }
 
 ```
@@ -627,7 +628,7 @@ builder.Services.AddGraphQLServer()
 
 Okay...It's time to run the application again.
 
-![image](\images\2023-04-21-try-graphql-with-hot-chocolate\ScreenRecorderProject11.gif)
+![image](\images\2023-04-21-try-graphql-with-hot-chocolate\BananaCakePop2.gif)
 
 We can see that we could query the API, with the fields we are interested and we got exactly what we need.
 
