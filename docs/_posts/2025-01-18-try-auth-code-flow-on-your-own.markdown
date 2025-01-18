@@ -1,12 +1,12 @@
 ---
 layout: post
 title:  "Try out OAuth 2.0 auth-code flow by your own"
-date:   2023-07-21 03:46:00 +0530
+date:   2024-01-18 05:25:00 +0530
 categories: jekyll update
 published: true
 ---
 <div style="text-align: center;">
-  <img src="\images\2023-0721-durable-functions-in-short\Title.jpg" style="width: 500px; height: auto;">
+  <img src="\images\2024-01-18-Oauth-flow-pkce.jpeg" style="width: 500px; height: auto;">
 </div>
 
 ---
@@ -22,7 +22,7 @@ Of course, we don't need to reinvent the weel, but sometimes it is also true tha
 
 But we know all complex systems are built on, by the aggregation of simple steps on top of eacch other.
 
-So, if I look at the authcode flow diagram in  OAuth 2 [website](), The documentation felt intimidating, but the diagram was something enticed to be adopted
+So, if I look at the authcode flow diagram in  OAuth 2 [website](https://www.oauth.com/oauth2-servers/pkce/), The documentation felt intimidating, but the diagram was something enticed to be adopted
 ```
                                                  +-------------------+
                                                  |   Authz Server    |
@@ -49,7 +49,7 @@ So, if I look at the authcode flow diagram in  OAuth 2 [website](), The document
 
 > **Prerequisites**  
 >WSL in Windows to run some `curl` commands  
->Any OAuth 2 server (I preffered okta thos time you can find a free account to open [here]())
+>Any OAuth 2 server (I preffered okta thos time you can find a free account to open [here](https://developer.okta.com/))
 >A cliend id and registered user for some trial outs
 >A Browser to get some redirection urls
 
