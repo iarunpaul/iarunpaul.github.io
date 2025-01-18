@@ -7,8 +7,10 @@ published: true
 ---
 <div style="text-align: center;">
   <img src="\images\2024-01-18-Oauth-flow-pkce\PKCE_WOW.jpg" style="width: 500px; height: auto;">
-  <span>Courtesy: bing/create</span>
 </div>
+    <br>
+<span>Courtesy: bing/create</span>
+
 
 
 ---
