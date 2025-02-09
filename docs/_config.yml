@@ -24,8 +24,8 @@ description: >- # this means to ignore newlines until "baseurl:"
   My failures makes me learn a hell lot of things. I wonder sometimes why would someone else too
   fail the same way if I already did. That's the reason for a blog. I write my technical experiences 
   in the dev ops of software especially in kubernetes and all other bull shits!
-baseurl: "/" # the subpath of your site, e.g. /blog
-url: "https://iarunpaul.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "" # Keep it empty since you're using the root domain for your blog
+url: "https://blog.iarunpaul.com" # Updated to your custom domain
 twitter_username: iarunpaul
 github_username:  iarunpaul
 
