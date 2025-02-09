@@ -36,6 +36,7 @@ disqus:
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-sitemap
 paginate: 5
 
 show_excerpts: true
