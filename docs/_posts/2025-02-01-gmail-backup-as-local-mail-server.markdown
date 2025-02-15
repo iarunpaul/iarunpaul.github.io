@@ -220,23 +220,14 @@ Your server IP is 192.168.1.100.
 2. Configure Thunderbird (Windows/Linux)
 
 >  Open Thunderbird → Click Menu → Account Settings.
-
    Click Add Mail Account.
-
    Enter:
-
    Email Address: backup@local
-
    Password: (Leave blank or use a dummy password)
-
    Click Configure Manually and enter:
-
    IMAP Server: 192.168.1.100
-
    Port: 143 (or 993 for SSL)
-
    Authentication: None (since it’s read-only)
-
    Click Done.
 
    3. Configure iPhone (iOS Mail App)
