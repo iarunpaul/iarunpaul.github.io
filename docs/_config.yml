@@ -28,6 +28,7 @@ baseurl: "" # Keep it empty since you're using the root domain for your blog
 url: "https://blog.iarunpaul.com" # Updated to your custom domain
 twitter_username: iarunpaul
 github_username:  iarunpaul
+linkedin_username: arun-paul-polly-741042b9
 
 disqus:
     shortname: https-iarunpaul-github-io
