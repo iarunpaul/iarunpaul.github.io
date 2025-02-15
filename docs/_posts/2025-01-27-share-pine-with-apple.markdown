@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Create a local NAS at home: Share Pine with Apple"
+title:  "Create a local NAS at home: Share Pine with Apple 🍍🍏"
 date:   2025-01-27 10:25:00 +0530
 categories: jekyll update
 published: true
@@ -17,118 +17,180 @@ Courtesy: DALL-E</div>
 
 <br>
 <br>
-The best way to learn and understand the OAuth 2 flows, is by running them by your own with simple steps.
 
-If you are using the sdks for your application, the app will handle all the flows and fullfil all the requirements to get the token for you.
+## 🚨 The Problem: iCloud Full, Now What?
 
 
-Of course, we don't need to reinvent the weel, but sometimes it is also true that people used to talk about complexities and leave it to the machines and systems.
+You wake up to a frustrating notification on your iPhone:
 
-But we know all complex systems are built on, by the aggregation of simple steps on top of eacch other.
+> "Your iCloud storage is full. Upgrade to 2TB?"
 
-So, if I look at the authcode flow diagram in  OAuth 2 [website](https://www.oauth.com/oauth2-servers/pkce/), The documentation felt intimidating, but the diagram was something enticed to be adopted
-```
-                                                 +-------------------+
-                                                 |   Authz Server    |
-       +--------+                                | +---------------+ |
-       |        |--(A)- Authorization Request ---->|               | |
-       |        |       + t(code_verifier), t_m  | | Authorization | |
-       |        |                                | |    Endpoint   | |
-       |        |<-(B)---- Authorization Code -----|               | |
-       |        |                                | +---------------+ |
-       | Client |                                |                   |
-       |        |                                | +---------------+ |
-       |        |--(C)-- Access Token Request ---->|               | |
-       |        |          + code_verifier       | |    Token      | |
-       |        |                                | |   Endpoint    | |
-       |        |<-(D)------ Access Token ---------|               | |
-       +--------+                                | +---------------+ |
-                                                 +-------------------+
+Apple’s solution? Pay more every month.
 
-                     Figure 2: Abstract Protocol Flow
-                     (From OAuth 2community website)
+But what if you could take control of your storage and host your own NAS(Network Attached Storage)—accessible from your iPhone, iPad, Mac, Windows, and Linux devices?
 
-```
- No further explanation, we can try some realtime calls and learn by practice
+Enter the PinePhone NAS—a low-power, always-on storage solution using Samba (SMB) and a USB SSD to create a private iCloud alternative.
 
-> **Prerequisites**  
->WSL in Windows to run some `curl` commands  
->Any OAuth 2 server (I preffered okta thos time you can find a free account to open [here](https://developer.okta.com/))
->A cliend id and registered user for some trial outs
->A Browser to get some redirection urls
+Of course, it is not a robust NAS, blistering fast or a cloud based solution that you take anywher eyou move around.
 
-Hands on
+But the general use case, atleast for me was found to be quite adequete to have a decent performing NAS in my local network.
 
----
+I would always have something like a PinePhone handy, when I some tinker jobs, are spinning in my head.
 
-Run these bash commands to generate the `CODE CHALLENGE` and    `CODE VERIFIER`.
+>Raspberry pi or ArmSoM Sige7 or any popular single board computers would have a build for the purpose; but I am too hesitant to spend a penny today.
+
+*In fact, I was half way through the challenge (or fun 😜 ) of transforming a real mobile phone into a network storage.*
+
+----
+
+## 🛠️ Setting Up PinePhone as a NAS
+
+We'll turn a PinePhone running Mobian into a Samba-powered NAS that works with iOS Files, macOS Finder, Windows Explorer, and Android file managers.
+
+### 1️⃣ Connect an External SSD
+
+
+```bash
+lsblk -f
 
 ```
-# Generate Code Verifier
-CODE_VERIFIER=$(openssl rand -base64 32 | tr -d '=+/')
 
-# Generate Code Challenge
-CODE_CHALLENGE=$(echo -n $CODE_VERIFIER | openssl dgst -sha256 -binary | openssl base64 | tr -d '=+' | tr '/+' '_-')
 
-echo "Verifier: $CODE_VERIFIER"
-echo "Challenge: $CODE_CHALLENGE"```
+Mount it:
+
+
+```bash
+sudo mkdir -p /mnt/nas_storage
+sudo mount /dev/sda1 /mnt/nas_storage
+
+```
+
+To automount on boot, add this to /etc/fstab:
+
+```ini
+UUID=<your-ssd-uuid> /mnt/nas_storage ext4 defaults 0 0
+
+````
+Verify:
+
+```bash
+df -h
+```
+
+### 2️⃣ Install & Configure Samba
+
+Install Samba:
+
+```bash
+sudo apt update && sudo apt install samba -y
+
+```
+
+Edit the Samba config:
+
+```bash
+sudo vi /etc/samba/smb.conf
+
+```
+
+Add:
+```ini
+[global]
+   unix extensions = no
+   wide links = yes
+   follow symlinks = yes
+   max protocol = SMB3
+   mangled names = no
+
+[NAS_Share]
+   comment = PinePhone NAS
+   path = /mnt/nas_storage
+   browseable = yes
+   writable = yes
+   guest ok = no
+   force user = mobian
+   force group = mobian
+   create mask = 0777
+   directory mask = 0777
+   valid users = mobian
+
 ```
 
 
-Check you domain name of your Okta auth server and create a url like this:
-```
-https://dev-23171555.okta.com/oauth2/default/v1/authorize?
-client_id=0oamjhc3duhQI46bi5d7&
-response_type=code&
-scope=openid%20profile%20email&
-redirect_uri=http://localhost:5173/profile&state=1234&
-code_challenge_method=S256&
-code_challenge=stvsdDox4UGFke3kx6qlYViBRhmkpgPqJ6TsnO6AZTA
+Restart Samba:
+
+```bash
+sudo systemctl restart smbd nmbd
 
 ```
-You will be redirected to the Oauth Server page where you can log in with your registered user and password.
 
-Boom...
-Your browser says, something broken, but if you look the url, you can see that you have been redirected to the configured url, with some parameters:
+### 3️⃣ Access NAS from iPhone, Mac, Windows
 
-```
-http://localhost:5173/profile?code=svHkgr1ksofnXmySrd0ylGwQur7keLzJI1mxfkf3y5A&state=1234
-```
+📲 iPhone & iPad
+1. Open the Files app.
+2. Tap Browse → … (More) → Connect to Server.
+3. Enter:
 
-Yeah, you got the code and the state to verify with the state of your request.
-
-Code is what we need to exchange for a toke.
-
-Lets do that next.
-
-In order to achieve it, we need to make a `POST` call to the token endpoint of our auth server.
+```cpp
+smb://192.168.x.x(local.domain)/NAS_Share
 
 ```
-curl -X POST "https://dev-23171555.okta.com/oauth2/default/v1/token" \
-  -H "Content-Type: application/x-www-form-urlencoded" \
-  -d "grant_type=authorization_code" \
-  -d "client_id=0oamjhc3duhQI46bi5d7" \
-  -d "code=svHkgr1ksofnXmySrd0ylGwQur7keLzJI1mxfkf3y5A" \
-  -d "redirect_uri=http://localhost:5173/profile" \
-  -d "code_verifier=$CODE_VERIFIER"
+4. Login as mobian, and boom—your own iCloud replacement!
+
+
+💻 macOS Finder
+
+1. Press Cmd + K in Finder.
+2. Enter:
+
+```cpp
+smb://192.168.x.x(local.domain)/NAS_Share
+
 ```
-the client id, code and verifier are included as the `post` body parameter.
+3. Authenticate and mount the drive.
 
-If you made the call successfully, you should get a response similar to this:
+🖥️ Windows
+
+1. Open File Explorer.
+2. In the option `Add a network location` enter:
 
 ```
-{
-  "token_type": "Bearer",
-  "expires_in": 86400,
-  "access_token": "9t6P3uV95az8oTzop-FupgjdfhksTA-_RZUnablsPkX85stuNLvx5l0KLWg1vCRMLIIdSf9m",
-  "scope": "photo offline_access",
-  "refresh_token": "hVJlxyMdq2LyJ8aSkv0mhMiq"
-}
+\\192.168.x.x\NAS_Share
+
 ```
-You got what you need to access your resources following a PKCE flow.
+3. Login and start copying files.
 
-That was a simple walk through demonstration of what an OAuth Server PKCE.
+## 🔄 Make Your NAS Persistent
 
-Hope this helps!
+💡 Want the NAS to stay mounted across reboots? On macOS/Linux, add this to /etc/fstab:
+
+```arduino
+
+//192.168.x.x/NAS_Share /mnt/nas cifs username=mobian,password=yourpassword,iocharset=utf8 0 0
+
+```
+
+## 🚀 The Result: A Personal Cloud
+
+You now have: 
+
+✅ A private, expandable cloud
+✅ No monthly fees
+✅ Seamless integration with Apple, Windows, and Linux
+
+
+
+## 📢 What we have achieved
+No more rent on cloud storage and you own one now.
+
+Your PinePhone NAS is now a fully functional, cross-platform home cloud—a perfect escape from iCloud's limits.
+
+🛠 What’s next? Add encryption, enable remote access, or partition for readable and writable sections.
+
+Since, I have a shared storage now, next I am thinking, how to back up my Gmail and make it a read-only inbox over the network.
+
+I will come with some cool ideas on it sooner...
+
+👉 Would you build your own NAS? Drop your thoughts below! 🚀
 
 Happy Coding....
