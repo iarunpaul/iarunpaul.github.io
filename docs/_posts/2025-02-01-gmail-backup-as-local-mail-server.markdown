@@ -232,42 +232,26 @@ Your server IP is 192.168.1.100.
 
    3. Configure iPhone (iOS Mail App)
 
-   Go to Settings `→` Mail `→` Accounts.
-
+>  Go to Settings `→` Mail `→` Accounts.
    Tap Add Account `→` Other `→` Add Mail Account.
-
    Enter:
-
    Name: Gmail Backup
-
    Email: backup@local
-
    Password: (Leave blank or use a dummy password)
-
    Select IMAP and enter:
-
    Server: 192.168.1.100
-
    Port: 143 (or 993 for SSL)
-
    Authentication: None
-
    Save and check if emails appear.
 
    4. Import MBOX Files in Thunderbird
 
-   Thunderbird does not support MBOX files by default. Use ImportExportTools NG:
-
+>  Thunderbird does not support MBOX files by default. Use ImportExportTools NG:
    Open Thunderbird → Click `☰ ` Menu → `Add-ons and Themes`.
-
    Search for ImportExportTools NG and install it.
-
    Right-click Local Folders → ImportExportTools NG → Import mbox file.
-
    Select "Import directly one or more mbox files" and click OK.
-
    Choose your MBOX file and click Open.
-
    Now your emails should be accessible in Thunderbird.
 
 ----
