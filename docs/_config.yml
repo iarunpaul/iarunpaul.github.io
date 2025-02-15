@@ -19,9 +19,7 @@
 # in the templates via {{ site.myvariable }}.
 
 title: Techno Musings
-author:
-  name: Arun Paul (Polly)
-  email: iarunpaul@yahoo.com
+email: iarunpaul@yahoo.com
 description: >- # This means to ignore newlines until "baseurl:"
   A software architect's insights on DevOps, Kubernetes, cloud infrastructure, and 
   modern software development. Learn from real-world experiences, failures, and solutions 
