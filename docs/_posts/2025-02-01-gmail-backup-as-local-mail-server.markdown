@@ -213,67 +213,71 @@ inet 192.168.1.100/24
 
 Your server IP is 192.168.1.100.
 
+-----
+
+
+
 2. Configure Thunderbird (Windows/Linux)
 
-Open Thunderbird → Click Menu → Account Settings.
+>  Open Thunderbird → Click Menu → Account Settings.
 
-Click Add Mail Account.
+   Click Add Mail Account.
 
-Enter:
+   Enter:
 
-Email Address: backup@local
+   Email Address: backup@local
 
-Password: (Leave blank or use a dummy password)
+   Password: (Leave blank or use a dummy password)
 
-Click Configure Manually and enter:
+   Click Configure Manually and enter:
 
-IMAP Server: 192.168.1.100
+   IMAP Server: 192.168.1.100
 
-Port: 143 (or 993 for SSL)
+   Port: 143 (or 993 for SSL)
 
-Authentication: None (since it’s read-only)
+   Authentication: None (since it’s read-only)
 
-Click Done.
+   Click Done.
 
-3. Configure iPhone (iOS Mail App)
+   3. Configure iPhone (iOS Mail App)
 
-Go to Settings `→` Mail `→` Accounts.
+   Go to Settings `→` Mail `→` Accounts.
 
-Tap Add Account `→` Other `→` Add Mail Account.
+   Tap Add Account `→` Other `→` Add Mail Account.
 
-Enter:
+   Enter:
 
-Name: Gmail Backup
+   Name: Gmail Backup
 
-Email: backup@local
+   Email: backup@local
 
-Password: (Leave blank or use a dummy password)
+   Password: (Leave blank or use a dummy password)
 
-Select IMAP and enter:
+   Select IMAP and enter:
 
-Server: 192.168.1.100
+   Server: 192.168.1.100
 
-Port: 143 (or 993 for SSL)
+   Port: 143 (or 993 for SSL)
 
-Authentication: None
+   Authentication: None
 
-Save and check if emails appear.
+   Save and check if emails appear.
 
-4. Import MBOX Files in Thunderbird
+   4. Import MBOX Files in Thunderbird
 
-Thunderbird does not support MBOX files by default. Use ImportExportTools NG:
+   Thunderbird does not support MBOX files by default. Use ImportExportTools NG:
 
-Open Thunderbird → Click `☰ ` Menu → `Add-ons and Themes`.
+   Open Thunderbird → Click `☰ ` Menu → `Add-ons and Themes`.
 
-Search for ImportExportTools NG and install it.
+   Search for ImportExportTools NG and install it.
 
-Right-click Local Folders → ImportExportTools NG → Import mbox file.
+   Right-click Local Folders → ImportExportTools NG → Import mbox file.
 
-Select "Import directly one or more mbox files" and click OK.
+   Select "Import directly one or more mbox files" and click OK.
 
-Choose your MBOX file and click Open.
+   Choose your MBOX file and click Open.
 
-Now your emails should be accessible in Thunderbird.
+   Now your emails should be accessible in Thunderbird.
 
 ----
 
