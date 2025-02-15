@@ -100,5 +100,5 @@ minima:
      icon: x-twitter
      url: "https://x.com/jekyllrb"
    - title: Linkedin Test
-     icon: linkedin-in
-     url: "https://www.linkedin.com"
+     icon: linkedin
+     url: "https://linkedin.com"
