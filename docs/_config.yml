@@ -26,9 +26,9 @@ description: >- # This means to ignore newlines until "baseurl:"
   in scaling, automation, and cloud-native technologies.
 baseurl: "" # Keep it empty since you're using the root domain for your blog
 url: "https://blog.iarunpaul.com" # Updated to your custom domain
-twitter_username: iarunpaul
-github_username:  iarunpaul
-linkedin_username: arun-paul-polly-741042b9
+# twitter_username: iarunpaul
+# github_username:  iarunpaul
+# linkedin_username: arun-paul-polly-741042b9
 
 disqus:
     shortname: https-iarunpaul-github-io
@@ -43,7 +43,6 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
 
-show_excerpts: true
 
 # Exclude from processing.
 # The following items will not be processed, by default.
@@ -76,10 +75,10 @@ minima:
   # solarized-light	   Light variant of solarized color scheme.
   # solarized-dark	   Dark variant of solarized color scheme.
   # solarized	         Adaptive skin for solarized color scheme skins.
-  skin: dark
+  skin: classic
 
   # Set to `true` to show excerpts on the homepage.
-  #show_excerpts: false
+  show_excerpts: true
 
   # Minima date format.
   # The default value is "%b %d, %Y" (e.g. Nov 14, 2023) 
@@ -100,3 +99,6 @@ minima:
    - title: Jekyll at X (formerly Twitter)
      icon: x-twitter
      url: "https://x.com/jekyllrb"
+   - title: Linkedin Test
+     icon: linkedin-in
+     url: "https://www.linkedin.com"
