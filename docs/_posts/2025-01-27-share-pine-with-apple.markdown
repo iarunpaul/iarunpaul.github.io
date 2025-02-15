@@ -37,7 +37,7 @@ But the general use case, atleast for me was found to be quite adequete to have 
 
 I would always have something like a PinePhone handy, when I some tinker jobs, are spinning in my head.
 
->Raspberry pi or ArmSoM Sige7 or any popular single board computers would have a build for the purpose; but I am too hesitant to spend a penny today.
+>Raspberry pi or ArmSoM Sige7 or any popular single board computers would have been a build for the purpose; but I am too hesitant to spend a penny today.
 
 *In fact, I was half way through the challenge (or fun 😜 ) of transforming a real mobile phone into a network storage.*
 
