@@ -18,12 +18,12 @@ Courtesy: DALL-E</div>
 <br>
 <br>
 
-## 🚨 The Problem: iCloud Full, Now What?
+### 🚨 The Problem: iCloud Full, Now What?
 
 
 You wake up to a frustrating notification on your iPhone:
 
-> "Your iCloud storage is full. Upgrade to 2TB?"
+> **"Your iCloud storage is full. Upgrade to 2TB?"**
 
 Apple’s solution? Pay more every month.
 
@@ -43,11 +43,11 @@ I would always have something like a PinePhone handy, when I some tinker jobs, a
 
 ----
 
-## 🛠️ Setting Up PinePhone as a NAS
+### 🛠️ Setting Up PinePhone as a NAS
 
 We'll turn a PinePhone running Mobian into a Samba-powered NAS that works with iOS Files, macOS Finder, Windows Explorer, and Android file managers.
 
-### 1️⃣ Connect an External SSD
+#### 1️⃣ Connect an External SSD
 
 
 ```bash
@@ -76,8 +76,9 @@ Verify:
 ```bash
 df -h
 ```
+---
 
-### 2️⃣ Install & Configure Samba
+#### 2️⃣ Install & Configure Samba
 
 Install Samba:
 
@@ -123,8 +124,9 @@ Restart Samba:
 sudo systemctl restart smbd nmbd
 
 ```
+---
 
-### 3️⃣ Access NAS from iPhone, Mac, Windows
+#### 3️⃣ Access NAS from iPhone, Mac, Windows
 
 📲 iPhone & iPad
 1. Open the Files app.
@@ -160,7 +162,9 @@ smb://192.168.x.x(local.domain)/NAS_Share
 ```
 3. Login and start copying files.
 
-## 🔄 Make Your NAS Persistent
+---
+
+### 🔄 Make Your NAS Persistent
 
 💡 Want the NAS to stay mounted across reboots? On macOS/Linux, add this to /etc/fstab:
 
@@ -169,18 +173,21 @@ smb://192.168.x.x(local.domain)/NAS_Share
 //192.168.x.x/NAS_Share /mnt/nas cifs username=mobian,password=yourpassword,iocharset=utf8 0 0
 
 ```
+---
 
-## 🚀 The Result: A Personal Cloud
+### 🚀 The Result: A Personal Cloud
 
 You now have: 
 
 ✅ A private, expandable cloud
+
 ✅ No monthly fees
+
 ✅ Seamless integration with Apple, Windows, and Linux
 
+---
 
-
-## 📢 What we have achieved
+### 📢 What we have achieved
 No more rent on cloud storage and you own one now.
 
 Your PinePhone NAS is now a fully functional, cross-platform home cloud—a perfect escape from iCloud's limits.
