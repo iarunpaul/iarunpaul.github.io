@@ -19,16 +19,18 @@
 # in the templates via {{ site.myvariable }}.
 
 title: Techno Musings
-email: iarunpaul@yahoo.com
+author:
+  name: Arun Paul (Polly)
+  email: iarunpaul@yahoo.com
 description: >- # This means to ignore newlines until "baseurl:"
   A software architect's insights on DevOps, Kubernetes, cloud infrastructure, and 
   modern software development. Learn from real-world experiences, failures, and solutions 
   in scaling, automation, and cloud-native technologies.
 baseurl: "" # Keep it empty since you're using the root domain for your blog
 url: "https://blog.iarunpaul.com" # Updated to your custom domain
-# twitter_username: iarunpaul
-# github_username:  iarunpaul
-# linkedin_username: arun-paul-polly-741042b9
+github_username:  iarunpaul
+twitter_username: iarunpaul
+linkedin_username: arun-paul-polly-741042b9
 
 disqus:
     shortname: https-iarunpaul-github-io
@@ -75,7 +77,7 @@ minima:
   # solarized-light	   Light variant of solarized color scheme.
   # solarized-dark	   Dark variant of solarized color scheme.
   # solarized	         Adaptive skin for solarized color scheme skins.
-  skin: classic
+  skin: solarized-light
 
   # Set to `true` to show excerpts on the homepage.
   show_excerpts: true
@@ -92,13 +94,13 @@ minima:
   # * title    Tooltip rendered on hovering over icon.
   # * icon     Font Awesome icon id. `github` corresponds to `fa-github`.
   # * url      Full URL of social profile.
-  social_links:
-   - title: Minima Theme repository at GitHub
-     icon: github
-     url: "https://github.com/jekyll/minima"
-   - title: Jekyll at X (formerly Twitter)
-     icon: x-twitter
-     url: "https://x.com/jekyllrb"
-   - title: Linkedin Test
-     icon: linkedin
-     url: "https://linkedin.com"
+  # social_links:
+  #  - title: Minima Theme repository at GitHub
+  #    icon: github
+  #    url: "https://github.com/jekyll/minima"
+  #  - title: Jekyll at X (formerly Twitter)
+  #    icon: x-twitter
+  #    url: "https://x.com/jekyllrb"
+  #  - title: Linkedin Test
+  #    icon: linkedin
+  #    url: "https://linkedin.com"
