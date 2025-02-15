@@ -6,7 +6,7 @@ categories: jekyll update
 published: true
 ---
 <div style="text-align: center;">
-  <img src="\images\2025-02-01-backingup-gmail2025-02-01-backingup-gmail\gmail-local-mail-server.webp" style="width: 500px; height: auto;">
+  <img src="\images\2025-02-01-backingup-gmail\gmail-local-mail-server.webp" style="width: 500px; height: auto;">
 </div>
 <div style="text-align: center;">
 Courtesy: DALL-E</div>
