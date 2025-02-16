@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Try out OAuth 2.0 auth-code flow by your own"
-date:   2024-01-18 05:25:00 +0530
+date:   2024-05-18 05:25:00 +0530
 categories: jekyll update
 published: true
 ---

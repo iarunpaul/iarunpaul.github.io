@@ -20,24 +20,28 @@
 
 title: Techno Musings
 email: iarunpaul@yahoo.com
-description: >- # this means to ignore newlines until "baseurl:"
-  My failures makes me learn a hell lot of things. I wonder sometimes why would someone else too
-  fail the same way if I already did. That's the reason for a blog. I write my technical experiences 
-  in the dev ops of software especially in kubernetes and all other bull shits!
+description: >- # This means to ignore newlines until "baseurl:"
+  A software architect's insights on DevOps, Kubernetes, cloud infrastructure, and 
+  modern software development. Learn from real-world experiences, failures, and solutions 
+  in scaling, automation, and cloud-native technologies.
 baseurl: "" # Keep it empty since you're using the root domain for your blog
 url: "https://blog.iarunpaul.com" # Updated to your custom domain
-twitter_username: iarunpaul
 github_username:  iarunpaul
+twitter_username: iarunpaul
+linkedin_username: arun-paul-polly-741042b9
 
 disqus:
     shortname: https-iarunpaul-github-io
 
 # Build settings
 theme: minima
+# As of November 2023, GitHub Pages still uses Minima 2.5.1 (https://pages.github.com/versions/). 
+# If you want to use the latest Minima version on GitHub Pages, use the following setting and 
+# add a line comment on "theme: minima" above.
+# remote_theme: jekyll/minima
 plugins:
   - jekyll-feed
   - jekyll-sitemap
-paginate: 5
 
 show_excerpts: true
 
@@ -61,3 +65,4 @@ exclude:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
