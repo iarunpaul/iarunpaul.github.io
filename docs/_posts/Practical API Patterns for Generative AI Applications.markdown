@@ -5,7 +5,6 @@ date:   2025-02-16 05:25:00 +0530
 categories: [AI, API, Software Architecture]
 published: true
 description: "A developer-friendly breakdown of key API patterns for integrating Generative AI into applications."
-categories: [AI, API, Software Architecture]
 tags: [Generative AI, API Design, Software Engineering]
 ---
 <div style="text-align: center;">
