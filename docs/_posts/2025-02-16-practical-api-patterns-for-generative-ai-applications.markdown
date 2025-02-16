@@ -4,10 +4,11 @@ title:  "Practical API Patterns for Generative AI Applications"
 date:   2025-02-16 05:25:00 +0530
 categories: jekyll update
 published: true
+tags: [AI]
 description: "A developer-friendly breakdown of key API patterns for integrating Generative AI into applications."
 ---
 <div style="text-align: center;">
-  <img src="\images\2024-01-18-Oauth-flow-pkce\PKCE_WOW.jpg" style="width: 500px; height: auto;">
+  <img src="\images\2025-02-01-gen-ai-patterns\ai-patterns-title.webp" style="width: 500px; height: auto;">
 </div>
 <div style="text-align: center;">
 Courtesy: bing/create</div>
