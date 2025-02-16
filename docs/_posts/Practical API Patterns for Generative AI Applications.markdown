@@ -5,7 +5,6 @@ date:   2025-02-16 05:25:00 +0530
 categories: [AI, API, Software Architecture]
 published: true
 description: "A developer-friendly breakdown of key API patterns for integrating Generative AI into applications."
-tags: [Generative AI, API Design, Software Engineering]
 ---
 <div style="text-align: center;">
   <img src="\images\2024-01-18-Oauth-flow-pkce\PKCE_WOW.jpg" style="width: 500px; height: auto;">
