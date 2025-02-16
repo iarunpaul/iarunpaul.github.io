@@ -2,7 +2,7 @@
 layout: post
 title:  "Practical API Patterns for Generative AI Applications"
 date:   2025-02-16 05:25:00 +0530
-categories: [AI, API, Software Architecture]
+categories: jekyll update
 published: true
 description: "A developer-friendly breakdown of key API patterns for integrating Generative AI into applications."
 ---
