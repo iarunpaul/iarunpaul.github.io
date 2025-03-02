@@ -182,7 +182,7 @@ public static class MassTransitConfig
 *Edit on original post to include the `Inventory Released` consumption and cancellation:*
 
 
-> Thanks for **David Nguyen** (@hpcsc)[https://disqus.com/by/hpcsc/] for raising the comment.
+> Thanks for **David Nguyen** [@hpcsc](https://disqus.com/by/hpcsc/) for raising the comment.
 
 
 ### **5️⃣ Cancel the Scheduled Event on Checkout**
