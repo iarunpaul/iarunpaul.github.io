@@ -178,6 +178,48 @@ public static class MassTransitConfig
 
 ---
 
+
+*Edit on original post to include the `Inventory Released` consumption and cancellation:*
+
+
+> Thanks for **David Nguyen** (@hpcsc)[https://disqus.com/by/hpcsc/] for raising the comment.
+
+
+### **5️⃣ Cancel the Scheduled Event on Checkout**
+
+```csharp
+public class CartService
+{
+    private readonly IPublishEndpoint _publishEndpoint;
+    private readonly IMessageScheduler _scheduler;
+    private readonly ICacheService _cacheService;
+
+    public CartService(IPublishEndpoint publishEndpoint, IMessageScheduler scheduler, ICacheService cacheService)
+    {
+        _publishEndpoint = publishEndpoint;
+        _scheduler = scheduler;
+        _cacheService = cacheService;
+    }
+
+    public async Task CheckoutAsync(Guid cartId)
+    {
+        Console.WriteLine($"[Cart {cartId}] Checkout completed!");
+
+        var tokenId = _cacheService.GetScheduledToken(cartId);
+
+        if (tokenId != null)
+        {
+            await _scheduler.CancelScheduledPublish(tokenId.Value);
+            Console.WriteLine($"[Cart {cartId}] Inventory release event canceled.");
+        }
+
+        await _publishEndpoint.Publish(new OrderConfirmed(cartId));
+    }
+}
+```
+
+---
+
 ## **Why This Approach?**
 ✔ **Avoids batch processing overhead**
 ✔ **No need for expensive database queries**
