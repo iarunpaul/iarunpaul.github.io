@@ -126,7 +126,42 @@ sudo systemctl restart smbd nmbd
 ```
 ---
 
-#### 3️⃣ Access NAS from iPhone, Mac, Windows
+#### 3️⃣ Create Samba user
+
+1. Ensure Linux user mobian exists (you probably already have this):
+
+```bash
+
+sudo id mobian
+```
+> If it says "no such user", add the user:
+
+```bash
+
+sudo adduser mobian
+```
+2. Add mobian to Samba users and set a Samba password:
+
+```bash
+
+sudo smbpasswd -a mobian
+```
+This will prompt you to set a Samba password for SMB login (can be different from Linux user password).
+
+3. Enable the Samba user if needed:
+
+```bash
+
+sudo smbpasswd -e mobian
+```
+4. Restart Samba:
+
+```bash
+
+sudo systemctl restart smbd
+```
+
+#### 4️⃣ Access NAS from iPhone, Mac, Windows
 
 📲 iPhone & iPad
 1. Open the Files app.
